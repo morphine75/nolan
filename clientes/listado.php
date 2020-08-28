@@ -11,7 +11,7 @@ $ruta=$_REQUEST['path'];
 </div>
 
 <?php
-$sql="select * from ".$ruta;
+$sql="select * from clientes where ANULADO=0";
 $res=mysqli_query($conn, $sql);
 ?>
 
