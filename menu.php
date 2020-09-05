@@ -480,7 +480,7 @@
                                 <div id="dropdown-lvl3" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="#">Fleteros</a></li>
+                                            <li><a href="#" onclick="llamar('fleteros')">Fleteros</a></li>
                                             <li><a href="#">Rutas de Distribucion</a></li>
                                         </ul>
                                     </div>
