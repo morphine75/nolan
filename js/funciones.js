@@ -27,28 +27,54 @@ function editar(ruta, id){
 	})
 }
 
+function controlar_clientes(){
+    if ($('#nombre').val()==''){
+        return 0;
+    }
+    else{
+        if ($('#calle').val()==''){
+            return 0;
+        }
+        else{
+            if ($('#cuit').val()==''){
+                return 0;
+            }
+            else{
+                return 1;
+            }            
+        }
+    }
+}
+
+function sin_altura(){
+    if ($('#interseccion').is(':checked')){
+        $('#altura').css('display','none');
+    }
+    else{
+        $('#altura').css('display','inline');   
+    }
+}
+
 function controlar(ruta, id){
-	if ($('#nombre').val()==''){
-		alertas('Debe ingresar un nombre');
-	}
-	else
-		if ($('#domicilio').val()==''){
-			alertas('Debe ingresar un domicilio');
-		}
-		else{
-			var dataString=$("#formulario").serialize();
-			dataString=dataString+'&id='+id+'&funcion=guardar';
-			$.ajax({
-				url:'../nolan/'+ruta+'/controlador.php',
-				type:'post',
-				data: dataString,
-				success:function(a){
-					cerrar();
-					alertas(a);
-					llamar(ruta);
-				}
-			})
-		}
+    var funcion="controlar_"+ruta;
+    eval('var resultado='+funcion+'()');
+    if (resultado==1){
+		var dataString=$("#formulario").serialize();
+		dataString=dataString+'&id='+id+'&funcion=guardar';
+		$.ajax({
+			url:'../nolan/'+ruta+'/controlador.php',
+			type:'post',
+			data: dataString,
+			success:function(a){
+				cerrar();
+				alertas(a);
+				llamar(ruta);
+			}
+		})
+    }
+    else{
+        alertas('Debe ingresar los valores obligatorios');
+    }
 }
 
 function limpia_div(){

@@ -22,6 +22,7 @@ $res=mysqli_query($conn, $sql);
 				<th>Id</th>
 				<th>Nombre</th>
 				<th>Direccion</th>
+				<th>CUIT</th>
 				<th>Contacto</th>
 				<th>Telefono</th>
 				<th>Acciones</th>
@@ -33,7 +34,8 @@ $res=mysqli_query($conn, $sql);
 				<tr>
 					<td><?php echo $row['ID_CLIENTE']?></td>
 					<td><?php echo $row['NOM_CLIENTE']?></td>
-					<td><?php echo $row['DOMI_CLIENTE']?></td>
+					<td><?php echo $row['CALLE']." ".$row['ALTURA']?></td>
+					<td><?php echo $row['CUIT']?></td>
 					<td><?php echo $row['CONTACTO']?></td>
 					<td><?php echo $row['TELEFONOS']?></td>
 					<td><a class="btn btn-danger" onclick="anular('clientes', <?php echo $row['ID_CLIENTE'];?>)" style="padding: 5px">
