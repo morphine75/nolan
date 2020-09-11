@@ -1,4 +1,6 @@
-
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-P4reMEwgzCAF7WnGOiF1soFtzOySqJg">
+</script>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="css/estilo_datatable.css">
 <link rel="stylesheet" href="css/jquery-confirm.min.css"><!--css de alert-->

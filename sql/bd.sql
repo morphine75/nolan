@@ -121,6 +121,7 @@ create table CLIENTES
   ID_TIPO_IVA     int,
   ID_SUCURSAL     int,
   NOM_CLIENTE     varchar(60),
+  FANTASIA     varchar(60),  
   CODPOST       int ,
   CONTACTO       varchar(50),
   DOMI_CLIENTE     varchar(60),
@@ -130,7 +131,7 @@ create table CLIENTES
   YCOORD        varchar(21) default '0',
   MODUSR        varchar(30),
   MODFECHA       date default NULL,
-  TIPOPAGO       int ,
+  ID_TIPO_PAGO       int ,
   EMAIL        varchar(100),
   ANULADO       int ,
   FECALTA       date default NULL,
@@ -518,6 +519,16 @@ create table VENDEDORES
   ANULADO       int ,
   primary key (ID_VENDEDOR)
 );
+
+create table TIPOS_PAGO
+(
+   ID_TIPO_PAGO         int not null auto_increment,
+   DESCRIPCION          varchar(40),
+   primary key (ID_TIPO_PAGO)
+);
+
+alter table CLIENTES add constraint FK_REFERENCE_43 foreign key (ID_TIPO_PAGO)
+      references TIPOS_PAGO (ID_TIPO_PAGO) on delete restrict on update restrict;
 
 alter table ALMACENES add constraint FK_REFERENCE_8 foreign key (ID_DEPOSITO)
    references DEPOSITOS (ID_DEPOSITO) on delete restrict on update restrict;

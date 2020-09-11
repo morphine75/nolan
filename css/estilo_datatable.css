@@ -1,6 +1,12 @@
 /*
  * Table styles
  */
+
+.obligatorio{
+  color:#f40000;
+  font-weight: bold;
+}
+
 table.dataTable {
   
   margin: 0 auto;
