@@ -66,7 +66,7 @@ conectar();
       </p>   
       <p>
         <label for="telefono">Telefono</label>
-          <input type="text" name="telefono" class="e_form" id="telefono" size="20" value="<?php if(isset($row)) { echo $row['CONTACTO'];}?>"/>
+          <input type="text" name="telefono" class="e_form" id="telefono" size="20" value="<?php if(isset($row)) { echo $row['TELEFONOS'];}?>"/>
       </p>       
       <p>
         <label for="email">E-Mail</label>
