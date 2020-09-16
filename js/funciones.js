@@ -27,6 +27,9 @@ function editar(ruta, id){
 	})
 }
 
+
+//Funciones control formulario alta/modificaciones////////////////// 
+
 function controlar_clientes(){
     if ($('#nombre').val()==''){
         return 0;
@@ -45,6 +48,30 @@ function controlar_clientes(){
         }
     }
 }
+
+
+function controlar_proveedores(){
+    if ($('#nombre').val()==''){
+        return 0;
+    }
+    else{
+        if ($('#cuit').val()==''){
+            return 0;
+        }
+        else{
+            if ($('#direccion').val()==''){
+                return 0;
+            }
+            else{
+                return 1;
+            }            
+        }
+    }
+}
+
+//Fin controlador alta/modificacion/////////////////////////////////
+
+
 
 function sin_altura(){
     if ($('#interseccion').is(':checked')){

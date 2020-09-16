@@ -1,5 +1,5 @@
 <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=mi_key">
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiBxXkVyKaLdUmNVzyC9AeyAJNW7eGcLw">
 </script>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="css/estilo_datatable.css">
@@ -458,7 +458,7 @@
                         <ul class="nav navbar-nav">
                             <li><a href="#" onclick="llamar('clientes')">Clientes</a></li>
                             <li><a href="#">Articulos</a></li>
-                            <li><a href="#">Proveedores</a></li>
+                            <li><a href="#" onclick="llamar('proveedores')">Proveedores</a></li>
                             <!-- Dropdown level 2 -->
                             <li class="panel panel-default" id="dropdown">
                                 <a data-toggle="collapse" href="#dropdown-lvl2">
