@@ -49,6 +49,24 @@ function controlar_clientes(){
     }
 }
 
+function controlar_rutas(){
+    if ($('#nombre').val()==''){
+        return 0;
+    }
+   else{
+       return 1;
+    }
+}
+
+function controlar_rutas_distribucion(){
+    if ($('#nombre').val()==''){
+        return 0;
+    }
+   else{
+       return 1;
+    }
+}
+
 
 function controlar_proveedores(){
     if ($('#nombre').val()==''){
