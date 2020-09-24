@@ -468,7 +468,7 @@
                                     <div class="panel-body">
                                         <ul class="nav navbar-nav">
                                             <li><a href="#" onclick="llamar('vendedores')">Vendedores</a></li>
-                                            <li><a href="#">Rutas de Venta</a></li>
+                                            <li><a href="#" onclick="llamar('rutas')">Rutas de Venta</a></li>
                                             <li><a href="#">Rutas por Vendedor</a></li>
                                         </ul>
                                     </div>
@@ -483,7 +483,7 @@
                                     <div class="panel-body">
                                         <ul class="nav navbar-nav">
                                             <li><a href="#" onclick="llamar('fleteros')">Fleteros</a></li>
-                                            <li><a href="#">Rutas de Distribucion</a></li>
+                                            <li><a href="#" onclick="llamar('rutas_distribucion')">Rutas de Distribucion</a></li>
                                         </ul>
                                     </div>
                                 </div>
