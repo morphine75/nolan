@@ -69,6 +69,25 @@ function controlar_proveedores(){
     }
 }
 
+
+function controlar_vendedores(){
+    if ($('#nombre').val()==''){
+        return 0;
+    }
+    else{
+        if ($('#sucursal').val()==''){
+            return 0;
+        }
+        else{
+            if ($('#cargo').val()==''){
+                return 0;
+            }
+            else{
+                return 1;
+            }            
+        }
+    }
+}
 //Fin controlador alta/modificacion/////////////////////////////////
 
 
