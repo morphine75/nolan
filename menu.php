@@ -469,7 +469,7 @@
                                         <ul class="nav navbar-nav">
                                             <li><a href="#">Vendedores</a></li>
                                             <li><a href="#" onclick="llamar('rutas')">Rutas de Venta</a></li>
-                                            <li><a href="#">Rutas por Vendedor</a></li>
+                                            <li><a href="#" onclick="llamar('rutas_vendedor')">Rutas por Vendedor</a></li>
                                         </ul>
                                     </div>
                                 </div>
