@@ -459,7 +459,8 @@
                             <li><a href="#" onclick="llamar('clientes')">Clientes</a></li>
                             <li><a href="#" onclick="llamar('canales')">Canales</a></li>
                             <li><a href="#" onclick="llamar('sucursales')">Sucursales</a></li> 
-                            <li><a href="#" onclick="llamar('impuestos')">Impuestos</a></li>                                               
+                            <li><a href="#" onclick="llamar('impuestos')">Impuestos</a></li>
+                            <li><a href="#" onclick="llamar('tipos_iva')">Tipos de IVA</a></li>
                             <li><a href="#" onclick="llamar('rutas_cliente')">Rutas por Cliente</a></li>                            
                             <li><a href="#">Articulos</a></li>
                             <li><a href="#" onclick="llamar('proveedores')">Proveedores</a></li>

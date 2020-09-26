@@ -3,15 +3,15 @@ include("../inc/conexion.php");
 conectar();
 $ruta=$_REQUEST['path'];
 ?>
-<h3>Canales</h3>
+<h3>Tipos IVA</h3>
 <div id="menu" align="left">
-  <a class="btn btn-primary" onclick="editar('canales',0)" href="#modal-container-abm" data-toggle="modal"><span class="glyphicon glyphicon-plus-sign"></span> Nuevo</a>&emsp;
+  <a class="btn btn-primary" onclick="editar('tipos_iva',0)" href="#modal-container-abm" data-toggle="modal"><span class="glyphicon glyphicon-plus-sign"></span> Nuevo</a>&emsp;
   <br />
   <hr>
 </div>
 
 <?php
-$sql="select * from CANALES";
+$sql="select * from TIPOS_IVA";
 $res=mysqli_query($conn, $sql);
 ?>
 
@@ -28,12 +28,12 @@ $res=mysqli_query($conn, $sql);
 			<?php
 			while ($row=mysqli_fetch_assoc($res)){?>
 				<tr>
-					<td><?php echo $row['ID_CANAL']?></td>
+					<td><?php echo $row['ID_TIPO_IVA']?></td>
 					<td><?php echo $row['DESCRIPCION']?></td>
 					<td>
-						<a class="btn btn-danger" onclick="anular('canales', <?php echo $row['ID_CANAL'];?>)" style="padding: 5px">
+						<a class="btn btn-danger" onclick="anular('tipos_iva', <?php echo $row['ID_TIPO_IVA'];?>)" style="padding: 5px">
                 		<span class="glyphicon glyphicon-remove"></span> Eliminar</a>
-                	<a onclick="editar('canales', <?php echo $row['ID_CANAL']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>
+                	<a onclick="editar('tipos_iva', <?php echo $row['ID_TIPO_IVA']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>
 				</tr>
 			<?php
 			}
