@@ -491,6 +491,7 @@
                                             <li><a href="#" onclick="llamar('rutas_distribucion')">Rutas de Distribucion</a></li>
                                             <li><a href="#" onclick="llamar('depositos')">Depositos</a></li>
                                             <li><a href="#" onclick="llamar('almacenes')">Almacenes</a></li>
+                                            <li><a href="#" onclick="llamar('tipos_movimiento')">Tipos de Movimientos de Stock</a></li>
                                         </ul>
                                     </div>
                                 </div>
