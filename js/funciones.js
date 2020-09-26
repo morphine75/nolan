@@ -30,6 +30,24 @@ function editar(ruta, id){
 
 //Funciones control formulario alta/modificaciones////////////////// 
 
+function controlar_sucursales(){
+    if ($('#nombre').val()==''){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
+function controlar_canales(){
+    if ($('#nombre').val()==''){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
 function controlar_depositos(){
     if ($('#nombre').val()==''){
         return 0;
