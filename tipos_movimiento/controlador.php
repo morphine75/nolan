@@ -30,7 +30,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE TIPOMOV SET DESCMOV='".$descripcion."' WHERE TIPOMOV=".$id;
+		$sql="UPDATE TIPOMOV SET DESCMOV='".$descripcion."' WHERE TIPOMOV='".$nombre."'";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';

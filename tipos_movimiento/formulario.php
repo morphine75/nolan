@@ -4,15 +4,16 @@ conectar();
 ?>
   <div> 
    <?php
-   if($_REQUEST['id']>0){
-    $titulo="Editar Tipo IVA";
+   if($_REQUEST['id']!='0'){
+    $titulo="Editar Tipo de Movimiento";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM TIPOS_IVA WHERE ID_TIPO_IVA=".$id);
+    $sql="SELECT * FROM TIPOMOV WHERE TIPOMOV='".$id."'";
+    $sql=mysqli_query($conn,$sql);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{
     $titulo="Nuevo Tipo de Movimiento";
-    $id=0;
+    $id='0';
   }
   ?>
   <h2><?php echo $titulo; ?></h2>
@@ -33,7 +34,7 @@ conectar();
       <br>
     </form>
     <div class="modal-footer">  
-      <button class="btn btn-primary" data-dismiss="modal" onclick="controlar('tipos_movimiento',<?php echo $id; ?>)"  style="margin-left: 10px; border:none"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button> <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpia_div()">Cancelar</button>
+      <button class="btn btn-primary" data-dismiss="modal" onclick="controlar('tipos_movimiento','<?php echo $id; ?>')"  style="margin-left: 10px; border:none"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button> <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpia_div()">Cancelar</button>
     </div>
   </fieldset>
 </div>

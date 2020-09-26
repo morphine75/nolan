@@ -33,9 +33,9 @@ $res=mysqli_query($conn, $sql);
 					<td><?php echo $row['DESCMOV']?></td>
 					<td><?php echo $row['SIGNO']?></td>
 					<td>
-						<a class="btn btn-danger" onclick="anular('tipos_movimiento', <?php echo $row['TIPOMOV'];?>)" style="padding: 5px">
+						<a class="btn btn-danger" onclick="anular('tipos_movimiento', '<?php echo $row['TIPOMOV'];?>')" style="padding: 5px">
                 		<span class="glyphicon glyphicon-remove"></span> Eliminar</a>
-                	<a onclick="editar('tipos_movimiento', <?php echo $row['TIPOMOV']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>
+                	<a onclick="editar('tipos_movimiento', '<?php echo $row['TIPOMOV']?>')" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>
 				</tr>
 			<?php
 			}
