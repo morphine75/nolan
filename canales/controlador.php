@@ -13,11 +13,9 @@ if (function_exists($function)) {
 function guardar($conn){
 	$id=$_REQUEST['id'];
 	$nombre=$_REQUEST['nombre'];
-	$calle=$_REQUEST['calle'];
-	$altura=$_REQUEST['altura'];
 
 	if ($id==0){
-		$sql="INSERT INTO DEPOSITOS (DESCRIPCION, CALLE, ALTURA, ANULADO) VALUES ('".$nombre."','".$calle."', '".$altura."', '0')";
+		$sql="INSERT INTO CANALES (DESCRIPCION) VALUES ('".$nombre."')";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';
@@ -27,7 +25,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE DEPOSITOS SET DESCRIPCION='".$nombre."', CALLE='".$calle."',ALTURA='".$altura."' WHERE ID_DEPOSITO=".$id;
+		$sql="UPDATE CANALES SET DESCRIPCION='".$nombre."' WHERE ID_CANAL=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';
@@ -41,12 +39,12 @@ function guardar($conn){
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM DEPOSITOS where ID_DEPOSITO=".$id;
+	$sql="DELETE FROM CANALES where ID_CANAL=".$id;
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE DEPOSITOS SET ANULADO=1 WHERE ID_DEPOSITO=".$id;
+		$sql="UPDATE CANALES SET ANULADO=1 WHERE ID_CANAL=".$id;
 		$res=mysqli_query($conn,$sql);
-		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El deposito se encuentra relacionado a almacenes, se procedio a anularlo </strong></div>';
+		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El canal se encuentra relacionado a clientes, se procedio a anularlo </strong></div>';
 	}
 	else{
 		echo '<div class="alert alert-success alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>¡OK!</strong> El registro se elimino con &eacute;xito.</div>';
