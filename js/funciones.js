@@ -48,7 +48,6 @@ function controlar_almacenes(){
     }
 }
 
-
 function controlar_clientes(){
     if ($('#nombre').val()==''){
         return 0;
@@ -94,7 +93,6 @@ function controlar_rutas_distribucion(){
     }
 }
 
-
 function controlar_proveedores(){
     if ($('#nombre').val()==''){
         return 0;
@@ -113,7 +111,6 @@ function controlar_proveedores(){
         }
     }
 }
-
 
 function controlar_vendedores(){
     if ($('#nombre').val()==''){
@@ -134,8 +131,6 @@ function controlar_vendedores(){
     }
 }
 //Fin controlador alta/modificacion/////////////////////////////////
-
-
 
 function sin_altura(){
     if ($('#interseccion').is(':checked')){

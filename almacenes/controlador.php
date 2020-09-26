@@ -45,7 +45,7 @@ function eliminar($conn){
 	if ($res === false) {
 		$sql="UPDATE ALMACENES SET ANULADO=1 WHERE ID_ALMACEN=".$id;
 		$res=mysqli_query($conn,$sql);
-		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El fletero se encuentra relacionado a movimientos, se procedio a anularlo </strong></div>';
+		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El almacen se encuentra relacionado a stock, se procedio a anularlo </strong></div>';
 	}
 	else{
 		echo '<div class="alert alert-success alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>¡OK!</strong> El registro se elimino con &eacute;xito.</div>';

@@ -5,13 +5,13 @@ $ruta=$_REQUEST['path'];
 ?>
 <h3>Fleteros</h3>
 <div id="menu" align="left">
-  <a class="btn btn-primary" onclick="editar('fleteros',0)" href="#modal-container-abm" data-toggle="modal"><span class="glyphicon glyphicon-plus-sign"></span> Nuevo</a>&emsp;
+  <a class="btn btn-primary" onclick="editar('canales',0)" href="#modal-container-abm" data-toggle="modal"><span class="glyphicon glyphicon-plus-sign"></span> Nuevo</a>&emsp;
   <br />
   <hr>
 </div>
 
 <?php
-$sql="select * from fleteros where ANULADO=0";
+$sql="select * from CANALES";
 $res=mysqli_query($conn, $sql);
 ?>
 
@@ -21,7 +21,6 @@ $res=mysqli_query($conn, $sql);
 			<tr>
 				<th>Id</th>
 				<th>Nombre</th>
-				<th>Telefono</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
@@ -29,13 +28,12 @@ $res=mysqli_query($conn, $sql);
 			<?php
 			while ($row=mysqli_fetch_assoc($res)){?>
 				<tr>
-					<td><?php echo $row['ID_FLETERO']?></td>
-					<td><?php echo $row['NOM_FLETERO']?></td>
-					<td><?php echo $row['TELEFONO']?></td>
+					<td><?php echo $row['ID_CANAL']?></td>
+					<td><?php echo $row['DESCRIPCION']?></td>
 					<td>
-						<a class="btn btn-danger" onclick="anular('fleteros', <?php echo $row['ID_FLETERO'];?>)" style="padding: 5px">
+						<a class="btn btn-danger" onclick="anular('canales', <?php echo $row['ID_CANAL'];?>)" style="padding: 5px">
                 		<span class="glyphicon glyphicon-remove"></span> Eliminar</a>
-                	<a onclick="editar('fleteros', <?php echo $row['ID_FLETERO']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>
+                	<a onclick="editar('canales', <?php echo $row['ID_CANAL']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>
 				</tr>
 			<?php
 			}
