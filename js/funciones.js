@@ -30,6 +30,20 @@ function editar(ruta, id){
 
 //Funciones control formulario alta/modificaciones////////////////// 
 
+function controlar_impuestos(){
+    if ($('#nombre').val()==''){
+        return 0;
+    }
+    else{
+        if ($('#alicuota').val()==''){
+            return 0;
+        }
+        else{
+            return 1;
+        }
+    }
+}
+
 function controlar_sucursales(){
     if ($('#nombre').val()==''){
         return 0;
