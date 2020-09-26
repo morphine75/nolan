@@ -468,7 +468,7 @@
                                 <div id="dropdown-lvl2" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="#">Vendedores</a></li>
+                                            <li><a href="#" onclick="llamar('vendedores')">Vendedores</a></li>
                                             <li><a href="#" onclick="llamar('rutas')">Rutas de Venta</a></li>
                                             <li><a href="#" onclick="llamar('rutas_vendedor')">Rutas por Vendedor</a></li>
                                         </ul>
@@ -485,6 +485,7 @@
                                         <ul class="nav navbar-nav">
                                             <li><a href="#" onclick="llamar('fleteros')">Fleteros</a></li>
                                             <li><a href="#" onclick="llamar('rutas_distribucion')">Rutas de Distribucion</a></li>
+                                            <li><a href="#" onclick="llamar('depositos')">Depositos</a></li>                                            
                                         </ul>
                                     </div>
                                 </div>

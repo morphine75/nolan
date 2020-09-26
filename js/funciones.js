@@ -30,6 +30,11 @@ function editar(ruta, id){
 
 //Funciones control formulario alta/modificaciones////////////////// 
 
+function controlar_depositos(){
+    return 1;
+}
+
+
 function controlar_clientes(){
     if ($('#nombre').val()==''){
         return 0;
