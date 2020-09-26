@@ -49,6 +49,10 @@ function controlar_clientes(){
     }
 }
 
+function controlar_rutas_cliente(){
+    return 1;
+}
+
 function controlar_rutas_vendedor(){
     return 1;
 }
