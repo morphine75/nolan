@@ -41,6 +41,7 @@ function controlar_tipos_movimiento(){
         else{
             return 1;
         }
+    }
 }
 
 function controlar_tipos_iva(){
