@@ -21,7 +21,7 @@ conectar();
   <fieldset>
     <form method="post" id="formulario"> 
       <p class="p_form"><label><span class="obligatorio">(*)</span> Nombre:</label>
-        <input type="text" size="60" class="e_form" name="nombre" id="nombre" value="<?php if(isset($row)) { echo $row['NOM_VENEDDOR'];}?>"/>
+        <input type="text" size="60" class="e_form" name="nombre" id="nombre" value="<?php if(isset($row)) { echo $row['NOM_VENDEDOR'];}?>"/>
       </p>
       <p class="p_form"><label><span class="obligatorio">(*)</span> Sucursal:</label>
         <select name="sucursal" class="e_form" id="sucursal">
@@ -48,7 +48,7 @@ conectar();
             $resvdr=mysqli_query($conn,$sqlvdr);
             while ($rowvdr=mysqli_fetch_assoc($resvdr)){
               ?>
-              <option value="<?php if(isset($row)) { echo $rowvdr['ID_VENDEDOR'];} else { echo $rowvdr['ID_VENDEDOR'];}?>" <?php if(isset($row)){ if ($row['VEN_ID_VENDEDOR']==$rowvdr['ID_VENDEDOR']) { echo "selected='true'";}}?>><?php echo $rowvdr['NOM_VENEDDOR']?></option>
+              <option value="<?php if(isset($row)) { echo $rowvdr['ID_VENDEDOR'];} else { echo $rowvdr['ID_VENDEDOR'];}?>" <?php if(isset($row)){ if ($row['VEN_ID_VENDEDOR']==$rowvdr['ID_VENDEDOR']) { echo "selected='true'";}}?>><?php echo $rowvdr['NOM_VENDEDOR']?></option>
             <?php
             }
           ?>

@@ -35,7 +35,7 @@ $res=mysqli_query($conn, $sql);
 			while ($row=mysqli_fetch_assoc($res)){?>
 				<tr>
 					<td><?php echo $row['ID_VENDEDOR']?></td>
-					<td><?php echo $row['NOM_VENEDDOR']?></td>
+					<td><?php echo $row['NOM_VENDEDOR']?></td>
 					<td>
 						<?php
 							$sqlsuc="select * from sucursales where ID_SUCURSAL=".$row['ID_SUCURSAL'];
