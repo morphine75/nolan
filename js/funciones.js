@@ -41,7 +41,6 @@ function controlar_tipos_movimiento(){
         else{
             return 1;
         }
-    }
 }
 
 function controlar_tipos_iva(){
@@ -65,6 +64,15 @@ function controlar_impuestos(){
             return 1;
         }
     }
+}
+
+function controlar_tipos_ruta(){
+    if ($('#nombre').val()==''){
+        return 0;
+    }
+    else{
+        return 1;
+    }    
 }
 
 function controlar_sucursales(){
