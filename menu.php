@@ -11,7 +11,7 @@
 <script type="text/javascript" src="js/funciones.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 <style>
-    :focus {
+:focus {
   outline: none;
 }
 .row {
@@ -60,6 +60,7 @@
   height: 100%;
   background-color: #f8f8f8;
   border-right: 1px solid #e7e7e7;
+  overflow: auto;
 }
 .side-menu .navbar {
   border: none;
@@ -489,6 +490,7 @@
                                     <div class="panel-body">
                                         <ul class="nav navbar-nav">
                                             <li><a href="#" onclick="llamar('fleteros')">Fleteros</a></li>
+                                            <li><a href="#" onclick="llamar('moviles')">Moviles</a></li>             
                                             <li><a href="#" onclick="llamar('rutas_distribucion')">Rutas de Distribucion</a></li>
                                             <li><a href="#" onclick="llamar('depositos')">Depositos</a></li>
                                             <li><a href="#" onclick="llamar('almacenes')">Almacenes</a></li>

@@ -30,6 +30,16 @@ function editar(ruta, id){
 
 //Funciones control formulario alta/modificaciones////////////////// 
 
+function controlar_moviles(){
+    if ($('#nombre').val()==''){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
+
 function controlar_tipos_movimiento(){
     if ($('#nombre').val()==''){
         return 0;
