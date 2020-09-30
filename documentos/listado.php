@@ -3,15 +3,15 @@ include("../inc/conexion.php");
 conectar();
 $ruta=$_REQUEST['path'];
 ?>
-<h3>Listas de Precio</h3>
+<h3>Documentos</h3>
 <div id="menu" align="left">
-  <a class="btn btn-primary" onclick="editar('listas_precio',0)" href="#modal-container-abm" data-toggle="modal"><span class="glyphicon glyphicon-plus-sign"></span> Nuevo</a>&emsp;
+  <a class="btn btn-primary" onclick="editar('documentos',0)" href="#modal-container-abm" data-toggle="modal"><span class="glyphicon glyphicon-plus-sign"></span> Nuevo</a>&emsp;
   <br />
   <hr>
 </div>
 
 <?php
-$sql="select * from LISTAS_PRECIO";
+$sql="select * from DOCUMENTOS";
 $res=mysqli_query($conn, $sql);
 ?>
 
@@ -21,6 +21,8 @@ $res=mysqli_query($conn, $sql);
 			<tr>
 				<th>Id</th>
 				<th>Nombre</th>
+				<th>Letra</th>
+				<th>Signo</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
@@ -28,12 +30,14 @@ $res=mysqli_query($conn, $sql);
 			<?php
 			while ($row=mysqli_fetch_assoc($res)){?>
 				<tr>
-					<td><?php echo $row['ID_LISTA']?></td>
+					<td><?php echo $row['ID_DOCUMENTO']?></td>
 					<td><?php echo $row['DESCRIPCION']?></td>
+					<td><?php echo $row['LETRA']?></td>
+					<td><?php echo $row['SIGNO']?></td>
 					<td>
-						<a class="btn btn-danger" onclick="anular('listas_precio', <?php echo $row['ID_LISTA'];?>)" style="padding: 5px">
+						<a class="btn btn-danger" onclick="anular('documentos', <?php echo $row['ID_DOCUMENTO'];?>)" style="padding: 5px">
                 		<span class="glyphicon glyphicon-remove"></span> Eliminar</a>
-                	<a onclick="editar('listas_precio', <?php echo $row['ID_LISTA']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>
+                	<a onclick="editar('documentos', <?php echo $row['ID_DOCUMENTO']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>
 				</tr>
 			<?php
 			}
