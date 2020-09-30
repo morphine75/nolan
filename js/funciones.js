@@ -30,6 +30,20 @@ function editar(ruta, id){
 
 //Funciones control formulario alta/modificaciones////////////////// 
 
+function controlar_documentos(){
+    if ($('#nombre').val()==''){
+        return 0;
+    }
+    else{
+        if ($('#letra').val()==''){
+            return 0;
+        }    
+        else{
+            return 1;
+        }
+    }
+}
+
 function controlar_listas_precio(){
     if ($('#nombre').val()==''){
         return 0;
