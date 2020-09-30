@@ -465,7 +465,8 @@
                             <li><a href="#" onclick="llamar('tipos_ruta')">Tipos de Ruta</a></li>                              
                             <li><a href="#" onclick="llamar('rutas_cliente')">Rutas por Cliente</a></li>                            
                             <li><a href="#">Articulos</a></li>
-                            <li><a href="#" onclick="llamar('listas_precio')">Listas de precio</a></li>                         
+                            <li><a href="#" onclick="llamar('listas_precio')">Listas de Precio</a></li> 
+                            <li><a href="#" onclick="llamar('precio_venta')">Precios de Venta</a></li>                               
                             <li><a href="#" onclick="llamar('proveedores')">Proveedores</a></li>
                             <!-- Dropdown level 2 -->
                             <li class="panel panel-default" id="dropdown">

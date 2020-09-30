@@ -164,6 +164,10 @@ function controlar_clientes(){
     }
 }
 
+function controlar_precio_venta(){
+    return 1;
+}
+
 function controlar_rutas_cliente(){
     return 1;
 }
