@@ -30,6 +30,16 @@ function editar(ruta, id){
 
 //Funciones control formulario alta/modificaciones////////////////// 
 
+function controlar_proveedores_articulos(){
+    var precio=$('#precio').val()
+    if ((precio=='')||(parseInt(precio)<0)){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
 function controlar_documentos(){
     if ($('#nombre').val()==''){
         return 0;
