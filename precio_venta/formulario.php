@@ -7,7 +7,6 @@ conectar();
    if($_REQUEST['id']!='0'){
     $titulo="Editar Precio";
     $id=$_REQUEST['id'];
-        echo $id;
     $id=explode("-", $id);
 
     $sql=mysqli_query($conn,"SELECT * FROM PRECIO_VENTA WHERE ID_LISTA=".$id[1]." AND ID_ARTICULO=".$id[0]);

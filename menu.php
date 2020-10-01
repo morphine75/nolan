@@ -468,6 +468,7 @@
                             <li><a href="#" onclick="llamar('listas_precio')">Listas de Precio</a></li> 
                             <li><a href="#" onclick="llamar('precio_venta')">Precios de Venta</a></li>                               
                             <li><a href="#" onclick="llamar('proveedores')">Proveedores</a></li>
+                            <li><a href="#" onclick="llamar('proveedores_articulos')">Proveedores por Articulos</a></li>                            
                             <!-- Dropdown level 2 -->
                             <li class="panel panel-default" id="dropdown">
                                 <a data-toggle="collapse" href="#dropdown-lvl2">
