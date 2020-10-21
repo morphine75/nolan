@@ -9,7 +9,7 @@ conectar();
     $id=$_REQUEST['id'];
     $id=explode("-", $id);
 
-    $sql=mysqli_query($conn,"SELECT * FROM PRECIO_VENTA WHERE ID_LISTA=".$id[1]." AND ID_ARTICULO=".$id[0]);
+    $sql=mysqli_query($conn,"SELECT * FROM precio_venta WHERE ID_LISTA=".$id[1]." AND ID_ARTICULO=".$id[0]);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{
@@ -23,7 +23,7 @@ conectar();
       <p class="p_form"><label>Lista de Precios:</label>
         <select name="lista_precio">
         <?php
-          $sql1="SELECT * from LISTAS_PRECIO";
+          $sql1="SELECT * from listas_precio";
           $res1=mysqli_query($conn, $sql1);
           while ($row1=mysqli_fetch_assoc($res1)){?>
             <option value="<?php echo $row1['ID_LISTA']?>" <?php if(isset($row)) { if ($row1['ID_LISTA']==$id[1]) { echo "selected='selected'";}}?>><?php echo $row1['DESCRIPCION']?></option>
@@ -36,7 +36,7 @@ conectar();
       <p class="p_form"><label>Articulo:</label>
         <select name="articulo">
         <?php
-          $sql1="SELECT * from ARTICULOS WHERE ANULADO=0";
+          $sql1="SELECT * from articulos WHERE ANULADO=0";
           $res1=mysqli_query($conn, $sql1);
           while ($row1=mysqli_fetch_assoc($res1)){?>
             <option value="<?php echo $row1['ID_ARTICULO']?>" <?php if(isset($row)) { if ($row1['ID_ARTICULO']==$id[0]) { echo "selected='selected'";}}?>><?php echo $row1['DESCRIPCION']?></option>

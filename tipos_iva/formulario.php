@@ -7,7 +7,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Tipo IVA";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM TIPOS_IVA WHERE ID_TIPO_IVA=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM tipos_iva WHERE ID_TIPO_IVA=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{

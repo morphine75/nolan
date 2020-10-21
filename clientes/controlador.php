@@ -41,7 +41,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE CLIENTES SET NOM_CLIENTE='".$nombre."', CALLE='".$calle."' WHERE ID_CLIENTE=".$id;
+		$sql="UPDATE clientes SET NOM_CLIENTE='".$nombre."', CALLE='".$calle."' WHERE ID_CLIENTE=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';
@@ -55,10 +55,10 @@ function guardar($conn){
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM CLIENTES where ID_CLIENTE=".$id;
+	$sql="DELETE FROM clientes where ID_CLIENTE=".$id;
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE CLIENTES SET ANULADO=1 WHERE ID_CLIENTE=".$id;
+		$sql="UPDATE clientes SET ANULADO=1 WHERE ID_CLIENTE=".$id;
 		$res=mysqli_query($conn,$sql);
 		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El cliente se encuentra relacionado a movimientos, se procedio a anularlo </strong></div>';
 	}

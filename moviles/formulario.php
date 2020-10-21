@@ -7,7 +7,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Movil";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM MOVILES WHERE ID_MOVIL=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM moviles WHERE ID_MOVIL=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{

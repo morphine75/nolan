@@ -15,7 +15,7 @@ function guardar($conn){
 	$nombre=$_REQUEST['nombre'];
 
 	if ($id==0){
-		$sql="INSERT INTO LISTAS_PRECIO (DESCRIPCION) VALUES ('".$nombre."')";
+		$sql="INSERT INTO listas_precio (DESCRIPCION) VALUES ('".$nombre."')";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';
@@ -25,7 +25,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE LISTAS_PRECIO SET DESCRIPCION='".$nombre."' WHERE ID_LISTA=".$id;
+		$sql="UPDATE listas_precio SET DESCRIPCION='".$nombre."' WHERE ID_LISTA=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';
@@ -39,10 +39,10 @@ function guardar($conn){
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM LISTAS_PRECIO where ID_LISTA=".$id;
+	$sql="DELETE FROM listas_precio where ID_LISTA=".$id;
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE LISTAS_PRECIO SET ANULADO=1 WHERE ID_LISTA=".$id;
+		$sql="UPDATE listas_precio SET ANULADO=1 WHERE ID_LISTA=".$id;
 		$res=mysqli_query($conn,$sql);
 		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>La lista se encuentra relacionado a articulos, se procedio a anularlo </strong></div>';
 	}

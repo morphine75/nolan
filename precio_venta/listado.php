@@ -11,12 +11,12 @@ $ruta=$_REQUEST['path'];
 </div>
 
 <?php
-$sql="SELECT A.ID_ARTICULO, L.ID_LISTA, A.DESCRIPCION AS ARTICULO, L.DESCRIPCION AS LISTA, P.PRECIO, A.CANTXCAJA from PRECIO_VENTA P, ARTICULOS A, LISTAS_PRECIO L WHERE L.ID_LISTA=P.ID_LISTA AND A.ID_ARTICULO=P.ID_ARTICULO";
+$sql="SELECT A.ID_ARTICULO, L.ID_LISTA, A.DESCRIPCION AS ARTICULO, L.DESCRIPCION AS LISTA, P.PRECIO, A.CANTXCAJA from precio_venta P, articulos A, listas_precio L WHERE L.ID_LISTA=P.ID_LISTA AND A.ID_ARTICULO=P.ID_ARTICULO";
 $res=mysqli_query($conn, $sql);
 ?>
 
 <div id="listado">
-	<table class="table table-hover" id="tabla_listado">
+	<table class="table table-hover table-striped" id="tabla_listado">
 		<thead>
 			<tr>
 				<th>Id</th>

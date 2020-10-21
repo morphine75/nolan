@@ -16,7 +16,7 @@ function guardar($conn){
 	$precio=$_REQUEST['precio'];
 
 	if ($id==0){
-		$sql="INSERT INTO PRECIO_VENTA (ID_LISTA, ID_ARTICULO, PRECIO) VALUES (".$id[0].",".$id[1].",'".$precio."')";
+		$sql="INSERT INTO precio_venta (ID_LISTA, ID_ARTICULO, PRECIO) VALUES (".$id[0].",".$id[1].",'".$precio."')";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';
@@ -26,7 +26,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE PRECIO_VENTA SET PRECIO='".$precio."' WHERE ID_LISTA=".$id[0]." AND ID_ARTICULO=".$id[1];
+		$sql="UPDATE precio_venta SET PRECIO='".$precio."' WHERE ID_LISTA=".$id[1]." AND ID_ARTICULO=".$id[0];
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';
@@ -41,7 +41,7 @@ function guardar($conn){
 function eliminar($conn){
 	$id=$_REQUEST['id'];
 	$id=explode("-", $id);
-	$sql="DELETE FROM PRECIO_VENTA where ID_LISTA=".$id[0]." AND ID_ARTICULO=".$id[1];
+	$sql="DELETE FROM precio_venta where ID_LISTA=".$id[0]." AND ID_ARTICULO=".$id[1];
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
 		//$sql="UPDATE PRECIO_VENTA SET ANULADO=1 WHERE ID_LISTA=".$id[0];

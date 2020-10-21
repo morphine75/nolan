@@ -17,27 +17,39 @@ function guardar($conn){
 	$ruta_dis=$_REQUEST['ruta_dis'];
 	$bandera=0;
 
-
-	$sql="DELETE FROM CLI_X_RUTA WHERE ID_CLIENTE=".$cliente;
-	mysqli_query($conn, $sql);
-	$sql="INSERT INTO CLI_X_RUTA (ID_RUTA, RUTA, ID_CLIENTE) values (".$ruta.",".$ruta_dis.",".$cliente.")";
-	$res=@mysqli_query($conn,$sql);
-	if ($res === false) {
-		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';
+	if ($id==0){
+		$sql="DELETE FROM cli_x_ruta WHERE ID_CLIENTE=".$cliente;
+		mysqli_query($conn, $sql);
+		$sql="INSERT INTO cli_x_ruta (ID_RUTA, RUTA, ID_CLIENTE) values (".$ruta.",".$ruta_dis.",".$cliente.")";
+		$res=@mysqli_query($conn,$sql);
+		if ($res === false) {
+			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>'.$sql;
+		}
+		else{
+			echo '<div class="alert alert-success alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>¡OK!</strong> El registro se inserto con &eacute;xito.</div>';
+		}
 	}
 	else{
-		echo '<div class="alert alert-success alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>¡OK!</strong> El registro se inserto con &eacute;xito.</div>';
+		$sql="DELETE FROM cli_x_ruta WHERE ID_CLIENTE=".$cliente;
+		mysqli_query($conn, $sql);
+		$sql="INSERT INTO cli_x_ruta (ID_RUTA, RUTA, ID_CLIENTE) values (".$ruta.",".$ruta_dis.",".$cliente.")";
+		$res=@mysqli_query($conn,$sql);
+		if ($res === false) {
+			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>'.$sql;
+		}
+		else{
+			echo '<div class="alert alert-success alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>¡OK!</strong> El registro se modifico con &eacute;xito.</div>';
+		}
 	}
-		
 }
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM RUTAS where ID_RUTA=".$id;
+	$cliente=$_REQUEST['cliente'];
+	$ruta=$_REQUEST['ruta'];	
+	$sql="DELETE FROM cli_x_ruta WHERE ID_CLIENTE=".$cliente." AND ID_RUTA=".$ruta;
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE RUTAS SET ANULADO=1 WHERE ID_RUTA=".$id;
-		$res=mysqli_query($conn,$sql);
 		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>La ruta se encuentra relacionado a movimientos, se procedio a anularlo </strong></div>';
 	}
 	else{

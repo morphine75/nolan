@@ -15,7 +15,7 @@ function guardar($conn){
 	$nombre=$_REQUEST['nombre'];
 
 	if ($id==0){
-		$sql="INSERT INTO TIPOS_IVA (DESCRIPCION) VALUES ('".$nombre."')";
+		$sql="INSERT INTO tipos_iva (DESCRIPCION) VALUES ('".$nombre."')";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';
@@ -25,7 +25,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE TIPOS_IVA SET DESCRIPCION='".$nombre."' WHERE ID_TIPO_IVA=".$id;
+		$sql="UPDATE tipos_iva SET DESCRIPCION='".$nombre."' WHERE ID_TIPO_IVA=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';

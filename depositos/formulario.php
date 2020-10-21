@@ -7,7 +7,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Deposito";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM DEPOSITOS WHERE ID_DEPOSITO=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM depositos WHERE ID_DEPOSITO=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{

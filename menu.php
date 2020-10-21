@@ -1,7 +1,7 @@
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiBxXkVyKaLdUmNVzyC9AeyAJNW7eGcLw">
 </script>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" id="bootstrap-css">
 <link rel="stylesheet" href="css/estilo_datatable.css">
 <link rel="stylesheet" href="css/jquery-confirm.min.css"><!--css de alert-->
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -11,6 +11,17 @@
 <script type="text/javascript" src="js/funciones.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 <style>
+input[type="number"] {
+   width:50px;
+}
+
+fieldset {
+    border: solid #000000 0px;
+    padding-bottom: 10px;
+    /*width: 90%;*/
+    margin:10px auto;
+}
+
 :focus {
   outline: none;
 }
@@ -450,25 +461,25 @@
             <!-- Dropdown-->
             <li class="panel panel-default" id="dropdown">
                 <a data-toggle="collapse" href="#dropdown-lvl1">
-                    <span class="glyphicon glyphicon-user"></span> Archivos <span class="caret"></span>
+                    <span class="glyphicon glyphicon-file"></span> Archivos <span class="caret"></span>
                 </a>
                 <!-- Dropdown level 1 -->
                 <div id="dropdown-lvl1" class="panel-collapse collapse">
                     <div class="panel-body">
                         <ul class="nav navbar-nav">
-                            <li><a href="#" onclick="llamar('clientes')">Clientes</a></li>
-                            <li><a href="#" onclick="llamar('canales')">Canales</a></li>
-                            <li><a href="#" onclick="llamar('sucursales')">Sucursales</a></li> 
-                            <li><a href="#" onclick="llamar('impuestos')">Impuestos</a></li>
-                            <li><a href="#" onclick="llamar('documentos')">Documentos</a></li>                            
-                            <li><a href="#" onclick="llamar('tipos_iva')">Tipos de IVA</a></li>
-                            <li><a href="#" onclick="llamar('tipos_ruta')">Tipos de Ruta</a></li>                              
-                            <li><a href="#" onclick="llamar('rutas_cliente')">Rutas por Cliente</a></li>                            
-                            <li><a href="#">Articulos</a></li>
-                            <li><a href="#" onclick="llamar('listas_precio')">Listas de Precio</a></li> 
-                            <li><a href="#" onclick="llamar('precio_venta')">Precios de Venta</a></li>                               
-                            <li><a href="#" onclick="llamar('proveedores')">Proveedores</a></li>
-                            <li><a href="#" onclick="llamar('proveedores_articulos')">Proveedores por Articulos</a></li>                            
+                            <li><a href="#" onclick="llamar('clientes')"><span class="glyphicon glyphicon-user"></span> Clientes</a></li>
+                            <li><a href="#" onclick="llamar('canales')"><span class="glyphicon glyphicon-th-list"></span> Canales</a></li>
+                            <li><a href="#" onclick="llamar('sucursales')"><span class="glyphicon glyphicon-road"></span> Sucursales</a></li> 
+                            <li><a href="#" onclick="llamar('impuestos')"><span class="glyphicon glyphicon-gbp"></span> Impuestos</a></li>
+                            <li><a href="#" onclick="llamar('documentos')"><span class="glyphicon glyphicon-folder-close"></span> Documentos</a></li>                            
+                            <li><a href="#" onclick="llamar('tipos_iva')"><span class="glyphicon glyphicon-briefcase"></span>Tipos de IVA</a></li>
+                            <li><a href="#" onclick="llamar('tipos_ruta')"><span class="glyphicon glyphicon-road"></span>Tipos de Ruta</a></li>                              
+                            <li><a href="#" onclick="llamar('rutas_cliente')"><span class="glyphicon glyphicon-list-alt"></span>Rutas por Cliente</a></li>                            
+                            <li><a href="#" onclick="llamar('articulos')"><span class="glyphicon glyphicon-th "></span>Articulos</a></li>
+                            <li><a href="#" onclick="llamar('listas_precio')"><span class="glyphicon glyphicon-list-alt"></span>Listas de Precio</a></li> 
+                            <li><a href="#" onclick="llamar('precio_venta')"><span class="glyphicon glyphicon-indent-left "></span>Precios de Venta</a></li>                               
+                            <li><a href="#" onclick="llamar('proveedores')"><span class="glyphicon glyphicon-cd"></span>Proveedores</a></li>
+                            <li><a href="#" onclick="llamar('proveedores_articulos')"><span class="glyphicon glyphicon-duplicate"></span>Proveedores por Articulos</a></li>                            
                             <!-- Dropdown level 2 -->
                             <li class="panel panel-default" id="dropdown">
                                 <a data-toggle="collapse" href="#dropdown-lvl2">
@@ -477,9 +488,10 @@
                                 <div id="dropdown-lvl2" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="#" onclick="llamar('vendedores')">Vendedores</a></li>
-                                            <li><a href="#" onclick="llamar('rutas')">Rutas de Venta</a></li>
-                                            <li><a href="#" onclick="llamar('rutas_vendedor')">Rutas por Vendedor</a></li>
+                                            <li><a href="#" onclick="llamar('vendedores')"><span class="glyphicon glyphicon-piggy-bank"></span>Vendedores</a></li>
+                                            <li><a href="#" onclick="llamar('rutas')"><span class="glyphicon glyphicon-screenshot"></span>Rutas de Venta</a></li>
+                                            <li><a href="#" onclick="llamar('rutas_vendedor')"><span class="glyphicon glyphicon-retweet"></span>Rutas por Vendedor</a></li>
+                                            <li><a href="#" onclick="llamar('pedidos')"><span class="glyphicon glyphicon-log-in"></span>Carga de Pedidos</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -487,29 +499,56 @@
                             <!-- Dropdown level 2 -->
                             <li class="panel panel-default" id="dropdown">
                                 <a data-toggle="collapse" href="#dropdown-lvl3">
-                                    <span class="glyphicon glyphicon-object-align-left"></span> Logisticos <span class="caret"></span>
+                                    <span class="glyphicon glyphicon-random"></span> Logisticos <span class="caret"></span>
                                 </a>
                                 <div id="dropdown-lvl3" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="#" onclick="llamar('fleteros')">Fleteros</a></li>
-                                            <li><a href="#" onclick="llamar('moviles')">Moviles</a></li>             
-                                            <li><a href="#" onclick="llamar('rutas_distribucion')">Rutas de Distribucion</a></li>
-                                            <li><a href="#" onclick="llamar('depositos')">Depositos</a></li>
-                                            <li><a href="#" onclick="llamar('almacenes')">Almacenes</a></li>
-                                            <li><a href="#" onclick="llamar('tipos_movimiento')">Tipos de Movimientos de Stock</a></li>
+                                            <li><a href="#" onclick="llamar('fleteros')"><span class="glyphicon glyphicon-bed "></span> Fleteros</a></li>
+                                            <li><a href="#" onclick="llamar('moviles')"><span class="glyphicon glyphicon-transfer "></span> Moviles</a></li>             
+                                            <li><a href="#" onclick="llamar('rutas_distribucion')"><span class="glyphicon glyphicon-fullscreen "></span> Rutas de Distribucion</a></li>
+                                            <li><a href="#" onclick="llamar('depositos')"><span class="glyphicon glyphicon-collapse-down "></span> Depositos</a></li>
+                                            <li><a href="#" onclick="llamar('almacenes')"><span class="glyphicon glyphicon-tent "></span> Almacenes</a></li>
+                                            <li><a href="#" onclick="llamar('tipos_movimiento')"><span class="glyphicon glyphicon-sound-stereo "></span> Tipos de Movimientos de Stock</a></li>
                                         </ul>
                                     </div>
                                 </div>
-                            </li>                            
+                            </li>
+                            <li class="panel panel-default" id="dropdown">
+                                <a data-toggle="collapse" href="#dropdown-lvl4">
+                                    <span class="glyphicon glyphicon-transfer"></span> Operaciones <span class="caret"></span>
+                                </a>
+                                <div id="dropdown-lvl4" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="#" onclick="llamar('stock')"><span class="glyphicon glyphicon-bookmark "></span> Stock</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>                                                  
                         </ul>
                     </div>
                 </div>
             </li>
             <li><a href="#"><span class="glyphicon glyphicon-send"></span> Facturacion</a></li>
             <li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Distribucion</a></li>
-
-            <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Informes</a></li>
+            <li class="panel panel-default" id="dropdown">
+                <a data-toggle="collapse" href="#dropdown-lvlInfo">
+                    <span class="glyphicon glyphicon-signal"></span> Informes <span class="caret"></span>
+                </a>
+                <!-- Dropdown level 1 -->
+                <div id="dropdown-lvlInfo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#" onclick="llamar_informe('clientes_x_ruta')"><span class="glyphicon glyphicon-th-list"></span> Clientes por Ruta</a></li>
+                            </li>                           
+                            <li><a href="#" onclick="llamar_mapa('mapa_rutas')"><span class="glyphicon glyphicon-map-marker"></span> Mapa de Rutas</a></li>
+                            </li>                                                  
+                        </ul>
+                    </div>
+                </div>                
+            </li>
+            <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Salir </a></li>     
 
         </ul>
     </div><!-- /.navbar-collapse -->

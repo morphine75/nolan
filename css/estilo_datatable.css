@@ -2,6 +2,16 @@
  * Table styles
  */
 
+.encabezado_tabla{
+  background-color: #6aa1df;
+  color: #0f4a8b;
+}
+
+.inactivo{
+  background-color: #d1dbe5;
+  color: #0f4a8b;
+}
+
 .obligatorio{
   color:#f40000;
   font-weight: bold;

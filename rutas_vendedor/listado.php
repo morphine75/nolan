@@ -11,7 +11,7 @@ $ruta=$_REQUEST['path'];
 </div>
 
 <?php
-$sql="select p.ID_RUTA, r.DESCRIPCION as RUTA, v.ID_VENDEDOR, v.NOM_VENDEDOR, p.DIAVIS from PERSO_X_RUT p, VENDEDORES v, RUTAS r WHERE r.ID_RUTA=p.ID_RUTA and v.ID_VENDEDOR=p.ID_VENDEDOR";
+$sql="select p.ID_RUTA, r.DESCRIPCION as RUTA, v.ID_VENDEDOR, v.NOM_VENDEDOR, p.DIAVIS from perso_x_rut p, vendedores v, rutas r WHERE r.ID_RUTA=p.ID_RUTA and v.ID_VENDEDOR=p.ID_VENDEDOR";
 $res=mysqli_query($conn, $sql);
 ?>
 
@@ -34,9 +34,9 @@ $res=mysqli_query($conn, $sql);
 					<td><?php echo $row['RUTA']?></td>
 					<td><?php echo $row['NOM_VENDEDOR']?></td>
 					<td><?php echo $row['DIAVIS']?></td>
-					<td><a class="btn btn-danger" onclick="anular('rutas_vendedor', <?php echo $row['ID_PROVEEDOR'];?>)" style="padding: 5px">
+					<td><a class="btn btn-danger" onclick="anular('rutas_vendedor', '<?php echo $row['ID_RUTA']."-".$row['ID_VENDEDOR'];?>')" style="padding: 5px">
                 	<span class="glyphicon glyphicon-remove"></span> Eliminar</a>
-                	<a onclick="editar('rutas_vendedor', <?php echo $row['ID_RUTA']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>   	
+                	<!--<a onclick="editar('rutas_vendedor', '<?php echo $row['ID_RUTA']."-".$row['ID_VENDEDOR'];?>')" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a>--></td>
 				</tr>
 			<?php
 			}

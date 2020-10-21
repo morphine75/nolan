@@ -8,7 +8,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Ruta";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM RUTAS WHERE ID_RUTA=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM rutas WHERE ID_RUTA=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{

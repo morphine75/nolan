@@ -18,11 +18,11 @@ function guardar($conn){
 	$bandera=0;
 
 
-		$sql="DELETE FROM PERSO_X_RUT WHERE ID_VENDEDOR=".$vendedor." AND ID_RUTA=".$ruta;
+		$sql="DELETE FROM perso_x_rut WHERE ID_VENDEDOR=".$vendedor." AND ID_RUTA=".$ruta;
 		mysqli_query($conn, $sql);
 		if (count($dias)>0){
 			for ($i=0;$i<count($dias);$i++){
-				$sql="INSERT INTO PERSO_X_RUT (ID_RUTA, ID_VENDEDOR, DIAVIS) values (".$ruta.",".$vendedor.",".$dias[$i].")";
+				$sql="INSERT INTO perso_x_rut (ID_RUTA, ID_VENDEDOR, DIAVIS) values (".$ruta.",".$vendedor.",".$dias[$i].")";
 				$res=@mysqli_query($conn,$sql);
 				if ($res === false) {
 					$bandera=1;
@@ -40,11 +40,10 @@ function guardar($conn){
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM RUTAS where ID_RUTA=".$id;
+	$ruta_vendedor=explode("-", $id);
+	$sql="DELETE FROM perso_x_rut where ID_RUTA=".$ruta_vendedor[0]." and ID_VENDEDOR=".$ruta_vendedor[1];
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE RUTAS SET ANULADO=1 WHERE ID_RUTA=".$id;
-		$res=mysqli_query($conn,$sql);
 		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El cliente se encuentra relacionado a movimientos, se procedio a anularlo </strong></div>';
 	}
 	else{

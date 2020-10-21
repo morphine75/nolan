@@ -7,7 +7,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Impuesto";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM IMPUESTOS WHERE ID_IMPUESTO=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM impuestos WHERE ID_IMPUESTO=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{

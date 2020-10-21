@@ -16,7 +16,7 @@ function guardar($conn){
 	$sucursal=$_REQUEST['sucursal'];
 
 	if ($id==0){
-		$sql="INSERT INTO RUTAS (DESCRIPCION, ID_SUCURSAL, ID_TIPO_RUTA, ANULADO) VALUES ('".$nombre."', '".$sucursal."','2', 0)";
+		$sql="INSERT INTO rutas (DESCRIPCION, ID_SUCURSAL, ID_TIPO_RUTA, ANULADO) VALUES ('".$nombre."', '".$sucursal."','2', 0)";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';
@@ -26,7 +26,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE RUTAS SET DESCRIPCION='".$nombre."', ID_SUCURSAL='".$sucursal."' WHERE ID_RUTA=".$id;
+		$sql="UPDATE rutas SET DESCRIPCION='".$nombre."', ID_SUCURSAL='".$sucursal."' WHERE ID_RUTA=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';
@@ -40,10 +40,10 @@ function guardar($conn){
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM RUTAS where ID_RUTA=".$id;
+	$sql="DELETE FROM rutas where ID_RUTA=".$id;
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE RUTAS SET ANULADO=1 WHERE ID_RUTA=".$id;
+		$sql="UPDATE rutas SET ANULADO=1 WHERE ID_RUTA=".$id;
 		$res=mysqli_query($conn,$sql);
 		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>La ruta se encuentra relacionada a movimientos, se procedio a anularla</strong></div>';
 	}
