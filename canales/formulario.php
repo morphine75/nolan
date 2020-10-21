@@ -7,7 +7,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Canal";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM CANALES WHERE ID_CANAL=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM canales WHERE ID_CANAL=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{

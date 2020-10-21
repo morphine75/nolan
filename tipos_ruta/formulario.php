@@ -7,7 +7,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Tipo de Ruta";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM TIPO_RUTA WHERE ID_TIPO_RUTA=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM tipo_ruta WHERE ID_TIPO_RUTA=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{

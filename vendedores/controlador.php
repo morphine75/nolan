@@ -34,7 +34,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE VENDEDORES SET ID_SUCURSAL='".$sucursal."', VEN_ID_VENDEDOR=".$superior.", NOM_VENEDDOR='".$nombre."', CARGO='".$cargo."', DOMICILIO='".$domicilio."', TELEFOS='".$telefono."' WHERE ID_VENDEDOR=".$id;
+		$sql="UPDATE vendedores SET ID_SUCURSAL='".$sucursal."', VEN_ID_VENDEDOR=".$superior.", NOM_VENEDDOR='".$nombre."', CARGO='".$cargo."', DOMICILIO='".$domicilio."', TELEFOS='".$telefono."' WHERE ID_VENDEDOR=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';
@@ -49,10 +49,10 @@ function guardar($conn){
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM VENDEDORES where ID_VENDEDOR=".$id;
+	$sql="DELETE FROM vendedores where ID_VENDEDOR=".$id;
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE VENDEDORES SET ANULADO=1 WHERE ID_VENDEDOR=".$id;
+		$sql="UPDATE vendedores SET ANULADO=1 WHERE ID_VENDEDOR=".$id;
 		$res=mysqli_query($conn,$sql);
 		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El vendedor se encuentra relacionado a movimientos, se procedio a anularlo </strong></div>';
 	}

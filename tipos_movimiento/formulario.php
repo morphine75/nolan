@@ -7,7 +7,7 @@ conectar();
    if($_REQUEST['id']!='0'){
     $titulo="Editar Tipo de Movimiento";
     $id=$_REQUEST['id'];
-    $sql="SELECT * FROM TIPOMOV WHERE TIPOMOV='".$id."'";
+    $sql="SELECT * FROM tipomov WHERE TIPOMOV='".$id."'";
     $sql=mysqli_query($conn,$sql);
     $row=mysqli_fetch_assoc($sql);   
   }

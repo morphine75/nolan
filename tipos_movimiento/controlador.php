@@ -15,12 +15,12 @@ function guardar($conn){
 	$descripcion=$_REQUEST['descripcion'];
 	$signo=$_REQUEST['signo'];
 
-	$sql="SELECT COUNT(TIPOMOV) as CANTIDAD FROM TIPOMOV WHERE TIPOMOV='".$nombre."'";
+	$sql="SELECT COUNT(TIPOMOV) as CANTIDAD FROM tipomov WHERE TIPOMOV='".$nombre."'";
 	$res=mysqli_query($conn, $sql);
 	$row=mysqli_fetch_assoc($res);
 
 	if ($row['CANTIDAD']==0){
-		$sql="INSERT INTO TIPOMOV (TIPOMOV, DESCMOV, SIGNO) VALUES ('".$nombre."','".$descripcion."','".$signo."')";
+		$sql="INSERT INTO tipomov (TIPOMOV, DESCMOV, SIGNO) VALUES ('".$nombre."','".$descripcion."','".$signo."')";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';
@@ -30,7 +30,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE TIPOMOV SET DESCMOV='".$descripcion."' WHERE TIPOMOV='".$nombre."'";
+		$sql="UPDATE tipomov SET DESCMOV='".$descripcion."' WHERE TIPOMOV='".$nombre."'";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';
@@ -44,10 +44,10 @@ function guardar($conn){
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM TIPOMOV where TIPOMOV='".$id."'";
+	$sql="DELETE FROM tipomov where TIPOMOV='".$id."'";
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE TIPOMOV SET ANULADO=1 WHERE TIPOMOV=".$id;
+		$sql="UPDATE tipomov SET ANULADO=1 WHERE TIPOMOV=".$id;
 		$res=mysqli_query($conn,$sql);
 		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El tipo de IVA se encuentra relacionado a clientes, se procedio a anularlo </strong></div>';
 	}

@@ -16,7 +16,7 @@ function guardar($conn){
 	$alicuota=$_REQUEST['alicuota'];
 
 	if ($id==0){
-		$sql="INSERT INTO IMPUESTOS (DESCRIPCION, ALICUOTA) VALUES ('".$nombre."','".$alicuota."')";
+		$sql="INSERT INTO impuestos (DESCRIPCION, ALICUOTA) VALUES ('".$nombre."','".$alicuota."')";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';
@@ -26,7 +26,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE IMPUESTOS SET DESCRIPCION='".$nombre."', ALICUOTA='".$alicuota." WHERE ID_IMPUESTO=".$id;
+		$sql="UPDATE impuestos SET DESCRIPCION='".$nombre."', ALICUOTA='".$alicuota." WHERE ID_IMPUESTO=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';
@@ -40,10 +40,10 @@ function guardar($conn){
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM IMPUESTOS where ID_IMPUESTO=".$id;
+	$sql="DELETE FROM impuestos where ID_IMPUESTO=".$id;
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE IMPUESTOS SET ANULADO=1 WHERE ID_IMPUESTO=".$id;
+		$sql="UPDATE impuestos SET ANULADO=1 WHERE ID_IMPUESTO=".$id;
 		$res=mysqli_query($conn,$sql);
 		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El deposito se encuentra relacionado a almacenes, se procedio a anularlo </strong></div>';
 	}

@@ -8,7 +8,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Vendedor";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM VENDEDORES WHERE id_vendedor=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM vendedores WHERE id_vendedor=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{
@@ -26,7 +26,7 @@ conectar();
       <p class="p_form"><label><span class="obligatorio">(*)</span> Sucursal:</label>
         <select name="sucursal" class="e_form" id="sucursal">
           <?php
-            $sqlscl="select * from SUCURSALES";
+            $sqlscl="select * from sucursales";
             $resscl=mysqli_query($conn,$sqlscl);
             while ($rowscl=mysqli_fetch_assoc($resscl)){
               ?>
@@ -44,7 +44,7 @@ conectar();
           <select name="superior" class="e_form" id="superior">
               <option value="0">No Posee</option>
           <?php
-            $sqlvdr="select * from VENDEDORES where anulado=0";
+            $sqlvdr="select * from vendedores where anulado=0";
             $resvdr=mysqli_query($conn,$sqlvdr);
             while ($rowvdr=mysqli_fetch_assoc($resvdr)){
               ?>

@@ -17,7 +17,7 @@ function guardar($conn){
 	$signo=$_REQUEST['signo'];
 
 	if ($id==0){
-		$sql="INSERT INTO DOCUMENTOS (DESCRIPCION, LETRA, SIGNO) VALUES ('".$nombre."','".$letra."', '".$signo."')";
+		$sql="INSERT INTO documentos (DESCRIPCION, LETRA, SIGNO) VALUES ('".$nombre."','".$letra."', '".$signo."')";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';
@@ -27,7 +27,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE DOCUMENTOS SET DESCRIPCION='".$nombre."', LETRA='".$letra."', SIGNO='".$signo."' WHERE ID_DOCUMENTO=".$id;
+		$sql="UPDATE documentos SET DESCRIPCION='".$nombre."', LETRA='".$letra."', SIGNO='".$signo."' WHERE ID_DOCUMENTO=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';
@@ -41,10 +41,10 @@ function guardar($conn){
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM DOCUMENTOS where ID_DOCUMENTO=".$id;
+	$sql="DELETE FROM documentos where ID_DOCUMENTO=".$id;
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE DOCUMENTOS SET ANULADO=1 WHERE ID_DOCUMENTO=".$id;
+		$sql="UPDATE documentos SET ANULADO=1 WHERE ID_DOCUMENTO=".$id;
 		$res=mysqli_query($conn,$sql);
 		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El documento se encuentra relacionado, se procedio a anularlo </strong></div>';
 	}

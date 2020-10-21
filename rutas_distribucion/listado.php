@@ -11,7 +11,7 @@ $ruta=$_REQUEST['path'];
 </div>
 
 <?php
-$sql="select r.ID_RUTA, r.DESCRIPCION as RUTA, s.DESCRIPCION as SUCURSAL from rutas r, sucursales s where s.ID_SUCURSAL=r.ID_SUCURSAL and ANULADO=0 and ID_TIPO_RUTA in (select ID_TIPO_RUTA from TIPO_RUTA where DESCRIPCION like '%DISTRIBUCION%')";
+$sql="select r.ID_RUTA, r.DESCRIPCION as RUTA, s.DESCRIPCION as SUCURSAL from rutas r, sucursales s where s.ID_SUCURSAL=r.ID_SUCURSAL and ANULADO=0 and ID_TIPO_RUTA in (select ID_TIPO_RUTA from tipo_ruta where DESCRIPCION like '%DISTRIBUCION%')";
 $res=mysqli_query($conn, $sql);
 ?>
 
@@ -32,9 +32,9 @@ $res=mysqli_query($conn, $sql);
 					<td><?php echo $row['ID_RUTA']?></td>
 					<td><?php echo $row['RUTA']?></td>
 					<td><?php echo $row['SUCURSAL']?></td>
-					<td><a class="btn btn-danger" onclick="anular('rutas_distribucion', <?php echo $row['ID_PROVEEDOR'];?>)" style="padding: 5px">
+					<td><a class="btn btn-danger" onclick="anular('rutas_distribucion', <?php echo $row['ID_RUTA'];?>)" style="padding: 5px">
                 	<span class="glyphicon glyphicon-remove"></span> Eliminar</a>
-                	<a onclick="editar('rutas', <?php echo $row['ID_RUTA']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>   	
+                	<a onclick="editar('rutas_distribucion', <?php echo $row['ID_RUTA']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>   	
 				</tr>
 			<?php
 			}

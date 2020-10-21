@@ -7,7 +7,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Almacen";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM ALMACENES WHERE ID_ALMACEN=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM almacenes WHERE ID_ALMACEN=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{
@@ -24,7 +24,7 @@ conectar();
       <p class="p_form"><label>Deposito</label>
         <select name="deposito">
         <?php
-        $sqlD="SELECT ID_DEPOSITO, DESCRIPCION FROM DEPOSITOS WHERE ANULADO=0";
+        $sqlD="SELECT ID_DEPOSITO, DESCRIPCION FROM depositos WHERE ANULADO=0";
         $resD=mysqli_query($conn, $sqlD);
         while ($rowD=mysqli_fetch_assoc($resD)){?>
           <option value="<?php echo $rowD['ID_DEPOSITO']?>"><?php echo $rowD['DESCRIPCION']?></option>

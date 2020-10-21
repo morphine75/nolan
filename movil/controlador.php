@@ -23,7 +23,7 @@ function guardar($conn){
 		$linea=explode("-",$articulos[$i]);
 		//echo $linea[0].$linea[1]."<br>";
 		if ($linea[1]=='B'){
-			$sql="SELECT PRECIO as IMPORTE from PRECIO_VENTA where ID_ARTICULO=".$linea[0];
+			$sql="SELECT PRECIO as IMPORTE from precio_venta where ID_ARTICULO=".$linea[0];
 			$res=mysqli_query($conn, $sql);
 			$row=mysqli_fetch_assoc($res);
 			$detalle_carga[$j]['ID_ARTICULO']=$linea[0];
@@ -33,7 +33,7 @@ function guardar($conn){
 			$j++;
 		}
 		if ($linea[1]=='U'){
-			$sql="SELECT PRECIO/CANTXCAJA as IMPORTE from PRECIO_VENTA P, ARTICULOS A where A.ID_ARTICULO=P.ID_ARTICULO AND A.ID_ARTICULO=".$linea[0];
+			$sql="SELECT PRECIO/CANTXCAJA as IMPORTE from precio_venta P, articulos A where A.ID_ARTICULO=P.ID_ARTICULO AND A.ID_ARTICULO=".$linea[0];
 			$res=mysqli_query($conn, $sql);
 			$row=mysqli_fetch_assoc($res);			
 			$detalle_carga[$j]['ID_ARTICULO']=$linea[0];
@@ -80,11 +80,11 @@ function guardar($conn){
 	$sql="INSERT INTO pedidos (ID_CLIENTE, ID_VENDEDOR, FECHA, TOTAL) VALUES (".$cliente.",".$vendedor.",'".$fecha."',".$total.")";
 	if ($res=mysqli_query($conn, $sql))
 	{
-		$sqlMax="SELECT MAX(ID_PEDIDO) as ID FROM PEDIDOS";
+		$sqlMax="SELECT MAX(ID_PEDIDO) as ID FROM pedidos";
 		$resMax=mysqli_query($conn, $sqlMax);
 		$rowMax=mysqli_fetch_assoc($resMax);
 		for ($i=0;$i<count($vecDetalle);$i++){
-			$sql="INSERT INTO DETALLE_PEDIDO (ID_PEDIDO, ID_ARTICULO, CANT, PRECIO) VALUES (".$rowMax['ID'].",".$vecDetalle[$i]['ID_ARTICULO'].",".$vecDetalle[$i]['CANTIDAD'].",".$vecDetalle[$i]['PRECIO'].")";
+			$sql="INSERT INTO detalle_pedido (ID_PEDIDO, ID_ARTICULO, CANT, PRECIO) VALUES (".$rowMax['ID'].",".$vecDetalle[$i]['ID_ARTICULO'].",".$vecDetalle[$i]['CANTIDAD'].",".$vecDetalle[$i]['PRECIO'].")";
 			$res=mysqli_query($conn, $sql);
 			if ($res === false) {
 				$bandera=1;

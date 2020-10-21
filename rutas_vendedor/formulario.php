@@ -6,9 +6,10 @@ conectar();
   <div> 
    <?php
    if($_REQUEST['id']>0){
-    $titulo="Editar Ruta";
+    $titulo="Editar Ruta por Vendedor";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM RUTAS WHERE ID_RUTA=".$id);
+    $ruta_vendedor=explode("-", $id);
+    $sql=mysqli_query($conn,"SELECT * FROM perso_x_rut WHERE ID_RUTA=".$ruta_vendedor[0]." and ID_VENDEDOR=".$ruta_vendedor[1]);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{
@@ -22,7 +23,7 @@ conectar();
     <form method="post" id="formulario"> 
       <p class="p_form"><label><span class="obligatorio">(*)</span> Ruta:</label>
           <?php 
-            $sqlSuc="select * from RUTAS where ID_TIPO_RUTA=1";
+            $sqlSuc="select * from rutas where ID_TIPO_RUTA=1";
             $resSuc=mysqli_query($conn, $sqlSuc);
             ?>    
             <select name="ruta">
@@ -37,7 +38,7 @@ conectar();
       </p>
       <p class="p_form"><label><span class="obligatorio">(*)</span> Vendedor:</label>
           <?php 
-            $sqlSuc="select * from VENDEDORES";
+            $sqlSuc="select * from vendedores";
             $resSuc=mysqli_query($conn, $sqlSuc);
             ?>    
             <select name="vendedor">
@@ -55,12 +56,12 @@ conectar();
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <p>
-            <label for="lunes">Lunes</label><input type="checkbox" name="dias[]" id="lunes" value="1"><hr>
-            <label for="martes">Martes</label><input type="checkbox" name="dias[]" id="martes" value="2"><hr>
-            <label>Miercoles</label><input type="checkbox" name="dias[]" id="miercoles" value="3"><hr>
-            <label>Jueves</label><input type="checkbox" name="dias[]" id="jueves" value="4"><hr>
-            <label>Viernes</label><input type="checkbox" name="dias[]" id="viernes" value="5"><hr>
-            <label>Sabado</label><input type="checkbox" name="dias[]" id="sabado" value="6"><hr>
+            <label for="lunes">Lunes</label><input type="checkbox" name="dias[]" id="lunes" value="1" <?php if(isset($row)) { if ($row['DIAVIS']==1){ echo "checked='true'";} }?>><hr>
+            <label for="martes">Martes</label><input type="checkbox" name="dias[]" id="martes" value="2" <?php if(isset($row)) { if ($row['DIAVIS']==2){ echo "checked='true'";} }?>><hr>
+            <label>Miercoles</label><input type="checkbox" name="dias[]" id="miercoles" value="3" <?php if(isset($row)) { if ($row['DIAVIS']==3){ echo "checked='true'";} }?>><hr>
+            <label>Jueves</label><input type="checkbox" name="dias[]" id="jueves" value="4" <?php if(isset($row)) { if ($row['DIAVIS']==4){ echo "checked='true'";} }?>><hr>
+            <label>Viernes</label><input type="checkbox" name="dias[]" id="viernes" value="5" <?php if(isset($row)) { if ($row['DIAVIS']==5){ echo "checked='true'";} }?>><hr>
+            <label>Sabado</label><input type="checkbox" name="dias[]" id="sabado" value="6" <?php if(isset($row)) { if ($row['DIAVIS']==6){ echo "checked='true'";} }?>><hr>
           </p>
         </div>
       </div>

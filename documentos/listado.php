@@ -11,12 +11,12 @@ $ruta=$_REQUEST['path'];
 </div>
 
 <?php
-$sql="select * from DOCUMENTOS";
+$sql="select * from documentos";
 $res=mysqli_query($conn, $sql);
 ?>
 
 <div id="listado">
-	<table class="table table-hover" id="tabla_listado">
+	<table class="table table-hover table-striped" id="tabla_listado">
 		<thead>
 			<tr>
 				<th>Id</th>

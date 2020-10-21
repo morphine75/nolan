@@ -7,7 +7,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Documento";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM DOCUMENTOS WHERE ID_DOCUMENTO=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM documentos WHERE ID_DOCUMENTO=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{

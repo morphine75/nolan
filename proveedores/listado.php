@@ -16,7 +16,7 @@ $res=mysqli_query($conn, $sql);
 ?>
 
 <div id="listado">
-	<table class="table table-hover" id="tabla_listado">
+	<table class="table table-hover table-striped" id="tabla_listado">
 		<thead>
 			<tr>
 				<th>Id</th>

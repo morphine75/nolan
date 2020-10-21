@@ -9,7 +9,7 @@ conectar();
     $titulo="Editar Proveedores por Articulos";
     $id=$_REQUEST['id'];
     $id=explode("-", $id);
-    $sql=mysqli_query($conn,"SELECT * FROM PROV_X_ARTICULO WHERE ID_PROVEEDOR=".$id[0]." AND ID_ARTICULO=".$id[1]);
+    $sql=mysqli_query($conn,"SELECT * FROM prov_x_articulo WHERE ID_PROVEEDOR=".$id[0]." AND ID_ARTICULO=".$id[1]);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{
@@ -22,7 +22,7 @@ conectar();
     <form method="post" id="formulario">
       <p class="p_form"><label><span class="obligatorio">(*)</span>Proveedor:</label>
         <?php 
-        $sqlSuc="SELECT * from PROVEEDORES where ANULADO=0";
+        $sqlSuc="SELECT * from proveedores where ANULADO=0";
         $resSuc=mysqli_query($conn, $sqlSuc);
         ?>    
         <select name="proveedor">

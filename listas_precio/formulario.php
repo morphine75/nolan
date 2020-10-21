@@ -7,7 +7,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Lista de Precio";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM LISTAS_PRECIO WHERE ID_LISTA=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM listas_precio WHERE ID_LISTA=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{
