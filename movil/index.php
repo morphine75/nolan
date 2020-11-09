@@ -14,66 +14,10 @@ session_start();
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="functions.ajax.js"></script>
 	</head>
-	<style type="text/css">
-html, body {
-    height: 100%;
-    margin: 0;
-}
-#videowrapper{  
-    position: relative;
-    overflow: hidden;
-} 
 
-#fullScreenDiv{
-    min-height: 100%; 
-    height: 100vh;
-    width: 100vw;
-    padding:0;
-    margin: 0;
-    background-color: gray;
-    position: relative;
-}
-
-#video{    
-    width: 100vw; 
-    height: auto;
-    margin: auto;
-    display: block;
-}
-@media (min-aspect-ratio: 16/9) {
-  #video{
-    width: 100vw; 
-    height:auto;
-  }
-}
-
-@media (max-aspect-ratio: 16/9) {
-  #video {
-    height: 100vh; 
-    width:auto;
-    margin-left: 50vw;
-    transform: translate(-50%);
-  }
-}
-
-#videoMessage{
-    width: 100%; 
-    height: 100%;
-    position: absolute; 
-    top: 0; 
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-	</style>
 <body>
-<div id="videowrapper">
-    <div id="fullScreenDiv">
-		<video id="video" preload="" autoplay="" muted="" playsinline loop="">
-			<source src="imagenes/neon.webm" type="video/webm">
-		</video>
+
+
 	<?php
 
 	if ( isset($_SESSION['user_name']) && isset($_SESSION['user_id']) && $_SESSION['user_name'] != '' && $_SESSION['user_id'] != '0')
@@ -81,10 +25,10 @@ html, body {
 		?>
 		<div class="session_on">
 			<?php
-				$_GET['q'] = $_SESSION['user_id'];
 				if ($_SESSION['user_id'])
-				{
-					header ("Location: menu.php");
+				{?>
+					<meta http-equiv="refresh" content="0; URL='menu.php?id_vendedor=<?php echo $_SESSION['user_id']?>" />
+				<?php
 				}
 			?>
 			<div id="alertBoxes"></div>
@@ -94,44 +38,38 @@ html, body {
 	}
 	else
 	{?>
-	<div id="videoMessage" class="styling">
-		<div class="header">
-			<h1>Nolan Movil<h1>
-		</div>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-				<div id="alertBoxes"></div>
-					<form role="form" method="post" action="">
-						<div class="form-group">	 
-							<label for="exampleInputEmail1">
-								Usuario
-							</label>
-							<input type="text" class="form-control" name="login_username" id="login_username">
-						</div>
-						<div class="form-group">
-							 
-							<label for="exampleInputPassword1">
-								Contraseña
-							</label>
-							<input type="password" class="form-control" name="login_userpass" id="login_userpass">
-						</div>
-						<span class="timer" id="timer"></span>
-						<button type="submit" class="btn btn-default" id="login_userbttn">
-							Ingresar
-						</button>	
-						<button type="button" class="btn btn-default" onclick="<script>window.close()</script>">
-							Cerrar
-						</button>					
-					</form>
+		<div align="center">
+			<div class="header" align="center">
+				<h1 style="font-size: 36px;">Nolan Movil</h1>
+			</div>
+			<div class="container-fluid" align="center">
+				<div class="row" align="center" style="width:80%;">
+					<div id="alertBoxes"></div>
+						<form role="form" method="post" action="">
+							<div class="form-group" align="center">	 
+								<p><label for="exampleInputEmail1" style="font-size: 30px">
+									Usuario
+								</label></p>
+								<input type="text" class="form-control" style="width:70%" name="login_username" id="login_username" style="font-size: 30px">
+							</div>
+							<div class="form-group">
+								<p><label for="exampleInputPassword1" style="font-size: 30px">
+									Contraseña
+								</label></p>
+								<input type="password" class="form-control" style="width:70%" name="login_userpass" id="login_userpass">
+							</div>
+							<span class="timer" id="timer"></span>
+							<button type="submit" class="btn btn-primary btn-lg btn-block" id="login_userbttn" style="font-size: 30px; width:70%">
+								Ingresar
+							</button>	
+						</form>
 				</div>
 			</div>
 		</div>
-	</div>	
 	<?php
 	}
 	?>	
-	</div>
-</div>
+
+
 </body>
 </html>

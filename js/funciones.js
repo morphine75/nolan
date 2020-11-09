@@ -1,6 +1,6 @@
 var total_pedido=0;
 var subtotal_pedido=0;
-var filas_detalle_pedido=0;
+var filas_detalle_pedido=$('#filas_detalle_pedido').val();
 function llamar(ruta){
 	$.ajax({
 		url:ruta+'/listado.php',
@@ -18,6 +18,16 @@ function llamar_informe(ruta){
         url:'./informes/'+ruta+'/p_'+ruta+'.php',
         type: 'post',
         data: 'path='+ruta,
+        success: function(a){
+            $('#main').html(a);
+        }
+    })
+}
+
+function llamar_distribucion(ruta){
+    $.ajax({
+        url:ruta+'/distribucion.php',
+        type: 'post',
         success: function(a){
             $('#main').html(a);
         }
@@ -315,7 +325,12 @@ function controlar_vendedores(){
 }
 
 function controlar_pedidos(){
-    return 1;
+    if (($('#detalle tr').length==2)||($('#total').val()=='')){
+        return 0;
+    }
+    else{
+        return 1;
+    }
 }
 
 //Fin controlador alta/modificacion/////////////////////////////////
@@ -362,7 +377,7 @@ function alertas(msj)
     title: 'Alerta!',
     //content: 'alerta común. <br> algo de <strong>HTML</strong> <em>con tags =)</em>',
     content: msj,
-    icon: 'fa fa-rocket',
+    icon: 'fa fa-exclamation',
     animation: 'scale',
     closeAnimation: 'scale',
     buttons: {
@@ -424,7 +439,7 @@ function ver(ruta, id){
 }
 
 function agregar_fila(){
-    $("#body_pedido").append('<tr id="tr_'+filas_detalle_pedido+'"><td><input type="text" size="7" name="codigo[]" id="codigo'+filas_detalle_pedido+'" onblur="busca_art_codigo(this.value, '+filas_detalle_pedido+')"></td><td><input type="text" name="articulo[]" size="30" id="articulo'+filas_detalle_pedido+'"></td><td><span id="precio'+filas_detalle_pedido+'"></span></<td><td><input type="text" name="cantidad[]" size="5" id="cantidad'+filas_detalle_pedido+'" onkeyup="calcula_st(this.value,0,'+filas_detalle_pedido+')"></td><td><input type="text" name="unidades[]" size="5" id="unidades'+filas_detalle_pedido+'" onkeyup="calcula_st(this.value,1,'+filas_detalle_pedido+')"></td><td><input type="number" name="bonif[]" size="5" id="bonif'+filas_detalle_pedido+'" onkeyup="calcula_descuento(this.value,'+filas_detalle_pedido+')"> %</td><td><span id="subtotal'+filas_detalle_pedido+'"></span></td><td><a href="#" onclick="quitar_fila_dr('+filas_detalle_pedido+')"><span class="glyphicon glyphicon-trash"></span></a></td></tr><input type="hidden" name="cantxcaja[]" id="cantxcaja'+filas_detalle_pedido+'"><input type="hidden" name="subtotal_linea[]" id="subtotal_linea'+filas_detalle_pedido+'"><input type="hidden" name="stock[]" id="stock'+filas_detalle_pedido+'" value="0">');
+    $("#body_pedido").append('<tr id="tr_'+filas_detalle_pedido+'"><td><input type="text" size="7" name="codigo[]" id="codigo'+filas_detalle_pedido+'" onblur="busca_art_codigo(this.value, '+filas_detalle_pedido+')"></td><td><input type="text" class="inactivo" readonly="readonly" name="articulo[]" size="30" id="articulo'+filas_detalle_pedido+'"></td><td><span id="precio'+filas_detalle_pedido+'"></span></<td><td><input type="number" min="0" step="1" name="cantidad[]" size="5" id="cantidad'+filas_detalle_pedido+'" onclick="calcula_st(this.value,0,'+filas_detalle_pedido+')" onkeyup="calcula_st(this.value,0,'+filas_detalle_pedido+')"></td><td><input type="number" min="0" step="1" name="unidades[]" size="5" id="unidades'+filas_detalle_pedido+'" onclick="calcula_st(this.value,1,'+filas_detalle_pedido+')" onkeyup="calcula_st(this.value,1,'+filas_detalle_pedido+')"></td><td><input type="number" name="bonif[]" size="5" id="bonif'+filas_detalle_pedido+'" onkeyup="calcula_descuento(this.value,'+filas_detalle_pedido+')"> %</td><td><span id="subtotal'+filas_detalle_pedido+'"></span></td><td><a href="#" onclick="quitar_fila_dr('+filas_detalle_pedido+')"><span class="glyphicon glyphicon-trash"></span></a></td></tr><input type="hidden" name="cantxcaja[]" id="cantxcaja'+filas_detalle_pedido+'"><input type="hidden" name="subtotal_linea[]" id="subtotal_linea'+filas_detalle_pedido+'"><input type="hidden" name="stock[]" id="stock'+filas_detalle_pedido+'" value="0">');
     filas_detalle_pedido++;
     subtotal_pedido=0;
 }
@@ -483,7 +498,8 @@ function busca_art_codigo(codigo, fila){
 function calcula_st(valor, tipo, fila){ 
     total_pedido=0;
     var keycode = (event.keyCode ? event.keyCode : event.which);
-    if((keycode > '95')&&(keycode < '106')||(keycode == '8')||(keycode == '46')){
+    //alert (keycode);
+    if((keycode > '95')&&(keycode < '106')||(keycode == '8')||(keycode == '46')||(keycode != '109')||(keycode != '110')){
         if (tipo=='0'){
             if ((valor!='')&&(valor!='0')){
                 var unidades=$('#unidades'+fila).val();
@@ -491,7 +507,7 @@ function calcula_st(valor, tipo, fila){
                 var cantxcaja=$('#cantxcaja'+fila).val();
                 if (unidades!=''){
                        unidades=parseInt(unidades)*(parseFloat(precio)/parseInt(cantxcaja));
-                        subtotal_pedido=unidades+parseInt(valor)*parseFloat(precio);
+                       subtotal_pedido=unidades+parseInt(valor)*parseFloat(precio);
                 }
                 else{
                     var cantidad=$('#cantidad'+fila).val();
@@ -547,6 +563,7 @@ function calcula_st(valor, tipo, fila){
         event.preventDefault(); //stop character from entering input 
     }
     var bandera_st=0;
+    alert (filas_detalle_pedido);
     for (var i=0;i<filas_detalle_pedido;i++){
         if ($('#subtotal'+i).length){
             /*CONTROLAR STOCK*/
@@ -567,12 +584,14 @@ function calcula_st(valor, tipo, fila){
                 if (controlar>parseInt($('#stock'+i).val())){
                     bandera_st=1;
                 }
-            }            
+            }
+            alert ($('#subtotal'+i).html());            
             if ($('#subtotal'+i).html()==''){
                 var sumar=0;
             }
             else{
                 var sumar=parseFloat($('#subtotal'+i).html());
+                alert (sumar);
             }
             total_pedido=parseFloat(total_pedido)+sumar;
         }

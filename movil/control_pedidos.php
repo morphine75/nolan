@@ -61,7 +61,10 @@ function alertas(msj)
     buttons: {
       okay: {
         text: 'OK!',
-        btnClass: 'btn-blue'
+        btnClass: 'btn-blue',
+        action: function () { 
+        	location.reload();
+        }
       }
     }
   });
@@ -78,16 +81,58 @@ function guardar_pedido(){
   });
 }
 
-function carga_cabecera(cliente, vendedor, nom_cliente){
-	$('#cliente').val(cliente);
-	$('#vendedor').val(vendedor);
-	$('#nombre_cliente').html(nom_cliente);
+function carga_cabecera(idpedido){
+	$.ajax({
+		url:'carga_pedido.php',
+		type:'POST',
+		data:'idpedido='+idpedido,
+		success: function (a){
+			$('#modal-body').html(a);
+		}
+	})
 }
 
 function cerrar(){
 	$('#modal-container-abm').modal('hide');
 	$('body').removeClass('modal-open');
 	$('.modal-backdrop').remove();
+}
+
+function eliminar_pedido(id){
+	$.confirm({
+    title: 'Confirmar Acción',
+    content: 'Desea eliminar el registro?',
+    icon: 'glyphicon glyphicon-question-sign',
+    animation: 'scale',
+    closeAnimation: 'scale',
+    opacity: 0.5,
+    buttons: {
+        confirm: {
+            text: 'SI',
+            btnClass: 'btn-green', 
+            action: function () {         
+                //accion de eliminar
+                var dataString='f=eliminar_pedido&id='+id;
+                $.ajax({
+					url:'./controlador.php',
+                	type:'post',
+                	data: dataString,
+                	success: function(a){
+                		alertas(a);
+                	}
+                })
+                //fin de accion eliminar
+            }
+        },
+        cancel: {
+            text: 'NO',
+            btnClass: 'btn-red',
+            action: function () {
+              $.alert('Accion Cancelada');
+            }
+        }
+    }
+  });   
 }
 
 </script>
@@ -104,17 +149,31 @@ conectar();
 
 $id=$_REQUEST['id'];
 
-$sql="SELECT c.ID_CLIENTE, c.NOM_CLIENTE, c.CALLE, c.ALTURA, count(ID_PEDIDO) AS PEDIDOS from cli_x_ruta cli, perso_x_rut p, clientes c left join pedidos e on e.ID_CLIENTE=c.ID_CLIENTE where p.ID_RUTA=cli.ID_RUTA and cli.ID_CLIENTE=c.ID_CLIENTE and p.DIAVIS=".saber_dia(date('Y-m-d'))." and p.ID_VENDEDOR=".$id." GROUP BY c.ID_CLIENTE";
+$sql="SELECT c.ID_CLIENTE, c.NOM_CLIENTE, e.FECHA, e.TOTAL, e.ID_PEDIDO from clientes c, pedidos e where e.ID_CLIENTE=c.ID_CLIENTE and e.ID_VENDEDOR=".$id;
 $res=mysqli_query($conn, $sql);
+
+$sqlTotal="SELECT sum(e.TOTAL) as TOTAL from pedidos e where e.ID_VENDEDOR=".$id;
+$resTotal=mysqli_query($conn, $sqlTotal);
+$rowTotal=mysqli_fetch_assoc($resTotal);
 ?>
-<button type="button" class="btn btn-primary btn-lg btn-block" style="height: 50px; font-size: 24px" onclick="window.history.go(-1)"><i class="fas fa-arrow-left"></i> Volver</button></a>
+<button type="button" class="btn btn-primary btn-lg btn-block" style="height: 50px; font-size: 24px" onclick="window.history.go(-1)"><i class="fas fa-arrow-left"></i>  Volver</button></a>
 <div id="listado">
+	<table class="table" style="font-size: 30px">
+		<thead>
+			<tr align="center">
+				<th>Total Pedidos</th>
+				<th>$ <?php echo number_format($rowTotal['TOTAL'],2)?></th>
+			</tr>
+		</thead>
+	</table>
 	<table class="table table-striped" id="tabla_listado">
 		<thead>
 			<tr>
 				<th>Id</th>
 				<th>Nombre</th>
-				<th>Direccion</th>
+				<th>Fecha</th>
+				<th>Total</th>
+				<th>Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -122,11 +181,12 @@ $res=mysqli_query($conn, $sql);
 			while ($row=mysqli_fetch_assoc($res)){
 				?>
 				<tr>
-					<td><a href="#modal-container-abm" data-toggle="modal" onclick="carga_cabecera(<?php echo $row['ID_CLIENTE']?>, <?php echo $id?>, '<?php echo $row['NOM_CLIENTE']?>')"><?php echo $row['ID_CLIENTE']?></a>
-            <span class="glyphicon glyphicon-thumbs-up" id="thumb_<?php echo $id?>" <?php if ($row['PEDIDOS']>0){ echo "style='display: inline'"; } else { echo "style='display: none'"; } ?>></span>
+					<td><a href="#modal-container-abm" data-toggle="modal" onclick="carga_cabecera(<?php echo $row['ID_CLIENTE']?>)"><?php echo $row['ID_CLIENTE']?></a>
 					</td>
-					<td><a href="#modal-container-abm" data-toggle="modal" onclick="carga_cabecera(<?php echo $row['ID_CLIENTE']?>, <?php echo $id?>, '<?php echo $row['NOM_CLIENTE']?>')"><?php echo $row['NOM_CLIENTE']?></a></td>
-					<td><a href="#modal-container-abm" data-toggle="modal" onclick="carga_cabecera(<?php echo $row['ID_CLIENTE']?>, <?php echo $id?>, '<?php echo $row['NOM_CLIENTE']?>')"><?php echo $row['CALLE']." ".$row['ALTURA']?></a></td>
+					<td><a href="#modal-container-abm" data-toggle="modal" onclick="carga_cabecera(<?php echo $row['ID_CLIENTE']?>)"><?php echo $row['NOM_CLIENTE']?></a></td>
+					<td><a href="#modal-container-abm" data-toggle="modal" onclick="carga_cabecera(<?php echo $row['ID_CLIENTE']?>)"><?php echo $row['FECHA']?></a></td>
+					<td><a href="#modal-container-abm" data-toggle="modal" onclick="carga_cabecera(<?php echo $row['ID_CLIENTE']?>)"><?php echo $row['TOTAL']?></a></td>		
+					<td><a onclick="eliminar_pedido(<?php echo $row['ID_PEDIDO']?>)" href="#"><span style="font-size: 24px; color: Red;"><i class="fas fa-trash"></i></span></a><br><br><a href="#modal-container-abm" data-toggle="modal" onclick="carga_cabecera(<?php echo $row['ID_PEDIDO']?>)"><span style="font-size: 24px; color:#52a4ff"><i class="fas fa-search-plus"></i></span></a></td>			
 				</tr>
 			<?php
 			}
@@ -134,62 +194,15 @@ $res=mysqli_query($conn, $sql);
 		</tbody>
 	</table>
 </div>
-<?php
-$sql="select a.ID_ARTICULO, a.DESCRIPCION, a.CANTXCAJA, p.PRECIO, s.CANTIDAD_DISPONIBLE from articulos a, precio_venta p, stock_almacen s where a.id_articulo=p.id_articulo and a.ID_ARTICULO=s.ID_ARTICULO and s.ID_ALMACEN=1";
-$res=mysqli_query($conn, $sql);
-?>
 <div class="modal fade" id="modal-container-abm" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="limpiar();">×</button>
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       </div>
-      <div id="ver"></div>
-      <div>
-      	<form id="formulario">
-      		<input type="hidden" name="cliente" id="cliente">
-      		<input type="hidden" name="vendedor" id="vendedor">
-      	</form>
-      	<legend align="center"><span id="nombre_cliente"></span></legend>
-      	<table id="tabla_listado_pedido" class="table table-striped">
-      	<legend align="center">Pedido</legend>
-        <div id="cuerpo_pedido">
-        </div>
-      	</table>
-      	<h4 align="center">Total del Pedido  <span id="total"></span></h4> 
-      	<p align="center"><a class="btn btn-primary" onclick="guardar_pedido()">Guardar Pedido</a></p>     	
-      </div>
-      <hr>
       <div class="modal-body" id="modal-body">
-      	<table id="tabla_articulos" class="table">      		
-      		<thead>
-      			<tr>
-      				<th>Cod.</th>
-      				<th>Articulo</th>
-      				<th>Pr.Bulto</th>
-      				<th>Pr.Unitario</th>
-              <th>St.Disponible</th>
-      			</tr>
-      		</thead>
-      		<tbody>
-      			<?php
-      			while ($row=mysqli_fetch_assoc($res)){?>
-      				<tr>
-      					<td><?php echo $row['ID_ARTICULO'];?></td>
-      					<td><?php echo $row['DESCRIPCION'];?></td>
-      					<td><a><span class="glyphicon glyphicon-plus-sign" onclick="carga_pedido_bultos('<?php echo $row['ID_ARTICULO']?>','<?php echo $row['DESCRIPCION'];?>', <?php echo $row['PRECIO'];?>)"></span></a> <?php echo $row['PRECIO'];?></td>
-      					<td><a><span class="glyphicon glyphicon-plus-sign" onclick="carga_pedido_unidades('<?php echo $row['ID_ARTICULO']?>','<?php echo $row['DESCRIPCION'];?>', <?php echo number_format($row['PRECIO']/$row['CANTXCAJA'],2)?>)"></span></a> <?php echo number_format($row['PRECIO']/$row['CANTXCAJA'],2);?></td>
-                <td><?php echo $row['CANTIDAD_DISPONIBLE']?></td>
-      				</tr>
-      			<?php
-      			}
-      			?>
-      		</tbody>
-      	</table>
+
       </div>
     </div>
   </div>
 </div>
-<?php
-desconectar();
-?>

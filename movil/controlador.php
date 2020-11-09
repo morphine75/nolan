@@ -23,7 +23,7 @@ function guardar($conn){
 		$linea=explode("-",$articulos[$i]);
 		//echo $linea[0].$linea[1]."<br>";
 		if ($linea[1]=='B'){
-			$sql="SELECT PRECIO as IMPORTE from precio_venta where ID_ARTICULO=".$linea[0];
+			$sql="SELECT PRECIO/CANTXCAJA as IMPORTE from precio_venta P, articulos A where A.ID_ARTICULO=P.ID_ARTICULO AND A.ID_ARTICULO=".$linea[0];
 			$res=mysqli_query($conn, $sql);
 			$row=mysqli_fetch_assoc($res);
 			$detalle_carga[$j]['ID_ARTICULO']=$linea[0];
@@ -42,7 +42,6 @@ function guardar($conn){
 			$detalle_carga[$j]['UNIDAD']=1;
 			$j++;
 		}
-		$total=$total+$row['IMPORTE'];
 		$arti_consultas=$arti_consultas.$linea[0].",";
 	}
 
@@ -72,6 +71,7 @@ function guardar($conn){
 					$vecDetalle[$j]['CANTIDAD']=$vecDetalle[$j]['CANTIDAD']+$vecDetalle[$j]['CANTXCAJA'];
 					$vecDetalle[$j]['PRECIO']=$vecDetalle[$j]['CANTIDAD']*$detalle_carga[$i]['IMPORTE'];
 				}
+				$total=$total+$vecDetalle[$j]['PRECIO'];
 			}
 		}
 	}
@@ -99,14 +99,15 @@ function guardar($conn){
 	}
 }
 
-function eliminar($conn){
+function eliminar_pedido($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM PROVEEDORES where ID_PROVEEDOR=".$id;
+	$sql="DELETE FROM detalle_pedido where ID_PEDIDO=".$id;
 	$res=@mysqli_query($conn,$sql);
+	$sql="DELETE FROM pedidos where ID_PEDIDO=".$id;
+	$res=@mysqli_query($conn,$sql);
+
 	if ($res === false) {
-		$sql="UPDATE PROVEEDORES SET ANULADO=1 WHERE ID_PROVEEDOR=".$id;
-		$res=mysqli_query($conn,$sql);
-		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El cliente se encuentra relacionado a movimientos, se procedio a anularlo </strong></div>';
+		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El cliente se encuentra relacionado a movimientos, se procedio a anularlo </strong></div>'.$sql;
 	}
 	else{
 		echo '<div class="alert alert-success alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>¡OK!</strong> El registro se elimino con &eacute;xito.</div>';
