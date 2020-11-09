@@ -18,6 +18,9 @@ conectar();
   else{
     $titulo="Nuevo Pedido";
     $id=0;
+    ?>
+    <input type="hidden" id="filas_detalle_pedido" value="0">
+  <?php
   }
   ?>
   <h2><?php echo $titulo; ?></h2>
@@ -76,10 +79,10 @@ conectar();
                 ?>
                 <tr id="tr_<?php echo $i?>">
                   <td><input type="text" size="7" name="codigo[]" id="codigo" onblur="busca_art_codigo(this.value, <?php echo $i?>)" value="<?php echo $rowD['ID_ARTICULO']?>"></td>
-                  <td><input type="text" name="articulo[]" size="30" id="articulo<?php echo $i?>" value="<?php echo $rowD['DESCRIPCION']?>"></td>
+                  <td><input type="text" class="inactivo" readonly="readonly" name="articulo[]" size="30" id="articulo<?php echo $i?>" value="<?php echo $rowD['DESCRIPCION']?>"></td>
                   <td><span id="precio<?php echo $i?>"><?php echo $rowD['P_UNITARIO']; ?></span></td>
-                  <td><input type="text" name="cantidad[]" size="5" id="cantidad<?php echo $i?>" onkeyup="calcula_st(this.value,0,<?php echo $i?>)" value="<?php echo floor($rowD['CANT']/$rowD['CANTXCAJA'])?>"></td>
-                  <td><input type="text" name="unidades[]" size="5" id="unidades<?php echo $i?>" onkeyup="calcula_st(this.value,1,<?php echo $i?>)" value="<?php echo ($rowD['CANT']%$rowD['CANTXCAJA'])?>"></td>
+                  <td><input type="number" name="cantidad[]" size="5" id="cantidad<?php echo $i?>" onkeyup="calcula_st(this.value,0,<?php echo $i?>)" value="<?php echo floor($rowD['CANT']/$rowD['CANTXCAJA'])?>"></td>
+                  <td><input type="number" name="unidades[]" size="5" id="unidades<?php echo $i?>" onkeyup="calcula_st(this.value,1,<?php echo $i?>)" value="<?php echo ($rowD['CANT']%$rowD['CANTXCAJA'])?>"></td>
                   <td><input type="number" name="bonif[]" size="5" id="bonif'+filas_detalle_pedido+'" onkeyup="calcula_descuento(this.value,<?php echo $i?>)" value="<?php echo $rowD['BONIF']?>"> %</td>
                   <td><span id="subtotal<?php echo $i?>"><?php echo $rowD['PRECIO']?></span></td>
                   <td><a href="#" onclick="quitar_fila_dr(<?php echo $i?>)"><span class="glyphicon glyphicon-trash"></span></a></td>
@@ -93,9 +96,9 @@ conectar();
               }
             }
             ?>
-            <input type="hidden" id="filas_detalle_pedido" value=<?php echo $i?>>
           </tbody>
         </table>
+        <input type="hidden" id="filas_detalle_pedido" value="<?php echo $i?>">
       </div>
     </form>
     <div class="modal-footer">  

@@ -1,10 +1,10 @@
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiBxXkVyKaLdUmNVzyC9AeyAJNW7eGcLw">
-</script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiBxXkVyKaLdUmNVzyC9AeyAJNW7eGcLw&libraries=drawing"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" id="bootstrap-css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <link rel="stylesheet" href="css/estilo_datatable.css">
 <link rel="stylesheet" href="css/jquery-confirm.min.css"><!--css de alert-->
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery-confirm.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
@@ -67,7 +67,7 @@ fieldset {
 
 .side-menu {
   position: fixed;
-  width: 300px;
+  width: 20%;
   height: 100%;
   background-color: #f8f8f8;
   border-right: 1px solid #e7e7e7;
@@ -531,7 +531,19 @@ fieldset {
                 </div>
             </li>
             <li><a href="#"><span class="glyphicon glyphicon-send"></span> Facturacion</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Distribucion</a></li>
+            <li class="panel panel-default" id="dropdown">
+                <a data-toggle="collapse" href="#dropdown-lvlDistribucion">
+                    <span class="glyphicon glyphicon-cloud"></span> Distribucion <span class="caret"></span>
+                </a>
+                <!-- Dropdown level 1 -->
+                <div id="dropdown-lvlDistribucion" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#" onclick="llamar_distribucion('distribucion')"><i class="fas fa-truck"></i> Distribucion de Pedidos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
             <li class="panel panel-default" id="dropdown">
                 <a data-toggle="collapse" href="#dropdown-lvlInfo">
                     <span class="glyphicon glyphicon-signal"></span> Informes <span class="caret"></span>
