@@ -34,6 +34,16 @@ function llamar_distribucion(ruta){
     })
 }
 
+function llamar_composicion(ruta){
+    $.ajax({
+        url:ruta+'/composicion_carga.php',
+        type: 'post',
+        success: function(a){
+            $('#main').html(a);
+        }
+    })
+}
+
 function ver_informe(ruta){
   $.post('./informes/'+ruta+'/'+ruta+'.php',$('#formulario').serialize(),function(dato){
     $("#resultado").html(dato);
@@ -41,14 +51,14 @@ function ver_informe(ruta){
 }
 
 function imprimir_informe(ruta){
-var redirect = function(url, method) {
-    var form = document.getElementById('formulario');
-    form.method = method;
-    form.action = url;
-    form.target = "_blank";
-    form.submit();
-};
-redirect('./informes/'+ruta+'/pdf_'+ruta+'.php', 'post');  
+    var redirect = function(url, method) {
+        var form = document.getElementById('formulario');
+        form.method = method;
+        form.action = url;
+        form.target = "_blank";
+        form.submit();
+    };
+    redirect('./informes/'+ruta+'/pdf_'+ruta+'.php', 'post');  
 }
 
 function llamar_mapa(ruta){
@@ -630,4 +640,47 @@ function calcula_descuento(valor, fila){
         }
     }
     $('#total').val(total_pedido);
+}
+
+function cargar_pedidos(){
+    $.ajax({
+        url:'./pedidos/carga_pedidos.php',
+        type:'POST',
+        success: function(a){
+            $('#modal-body-facturar').html(a);
+        }
+    })
+}
+
+function facturar_pedidos(id){
+    $.ajax({
+        url: './pedidos/facturar_pedidos.php',
+        type: 'POST',
+        data:'id='+id,
+        success: function(a){
+            $('#modal-body-facturar').html('');
+        }
+    })
+}
+
+
+function generar_planilla_carga(id){
+    var fecha_entrega=$('#fecha_entrega_'+id).val();
+    if (fecha_entrega!=''){
+        $.ajax({
+            url:'./distribucion/generar_planilla_carga.php',
+            type:'POST',
+            data:'id_movil='+id+'&fecha_entrega='+fecha_entrega,
+            success: function(a){
+                $('#span_num_composicion').html(a);
+                $('#btn_imprimir'+id).css('display','table-cell');
+                $('#btn_imprimir'+id).html('Imprimir Composicion '+id);
+                $('#btn_generar'+id).css('display','none');
+                $('#fecha_entrega_'+id).css('display','none');
+            }
+        })
+    }
+    else{
+        alertas('Debe ingresar una fecha de entrega');
+    }
 }

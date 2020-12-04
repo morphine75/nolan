@@ -29,9 +29,10 @@ function guardar($conn){
 	$fecha=date('Y-m-d');
 	$tipo_pago=$_REQUEST['tipo_pago'];
 	$observaciones=$_REQUEST['observaciones'];
+	$tipo_documento=$_REQUEST['tipo_documento'];
 
 	if ($id==0){
-		$sql="INSERT INTO clientes (NOM_CLIENTE, FANTASIA, CUIT, CALLE, ALTURA, CONTACTO, TELEFONOS, EMAIL, ID_SUCURSAL, ID_CANAL, ID_LISTA, ID_TIPO_IVA, ID_TIPO_PAGO, XCOORD, YCOORD, FECALTA, COMENTARIO, ANULADO) VALUES ('".$nombre."','".$fantasia."', '".$cuit."', '".$calle."','".$altura."','".$contacto."', '".$telefono."', '".$email."', '".$sucursal."', '".$canal."','".$lista_precio."','".$tipo_iva."','".$tipo_pago."', '".$xcoord."','".$ycoord."', '".$fecha."','".$observaciones."',0)";
+		$sql="INSERT INTO clientes (NOM_CLIENTE, FANTASIA, CUIT, CALLE, ALTURA, CONTACTO, TELEFONOS, EMAIL, ID_SUCURSAL, ID_CANAL, ID_LISTA, ID_TIPO_IVA, ID_TIPO_PAGO, XCOORD, YCOORD, FECALTA, COMENTARIO, ANULADO, ID_DOCUMENTO) VALUES ('".$nombre."','".$fantasia."', '".$cuit."', '".$calle."','".$altura."','".$contacto."', '".$telefono."', '".$email."', '".$sucursal."', '".$canal."','".$lista_precio."','".$tipo_iva."','".$tipo_pago."', '".$xcoord."','".$ycoord."', '".$fecha."','".$observaciones."',0, '".$tipo_documento."')";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';

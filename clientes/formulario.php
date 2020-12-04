@@ -33,7 +33,7 @@ conectar();
         <label for="sucursal">Sucursal</label>
           <select name="sucursal" class="e_form" id="sucursal">
           <?php
-            $sqlSucursales="select * from SUCURSALES";
+            $sqlSucursales="select * from sucursales";
             $ressucursales=mysqli_query($conn,$sqlSucursales);
             while ($rowSucursales=mysqli_fetch_assoc($ressucursales)){
               ?>
@@ -77,7 +77,7 @@ conectar();
         <label for="canal">Canal</label>
           <select name="canal" class="e_form" id="canal">
           <?php
-            $sqlCanal="select * from CANALES";
+            $sqlCanal="select * from canales";
             $resCanal=mysqli_query($conn,$sqlCanal);
             while ($rowCanal=mysqli_fetch_assoc($resCanal)){
               ?>
@@ -91,7 +91,7 @@ conectar();
         <label for="lista_precio">Lista de Precio</label>
           <select name="lista_precio" class="e_form" id="lista_precio">
           <?php
-            $sqlLP="select * from LISTAS_PRECIO";
+            $sqlLP="select * from listas_precio";
             $resLP=mysqli_query($conn,$sqlLP);
             while ($rowLP=mysqli_fetch_assoc($resLP)){
               ?>
@@ -105,7 +105,7 @@ conectar();
         <label for="tipo_iva">Tipo de IVA</label>
           <select name="tipo_iva" class="e_form" id="tipo_iva">
           <?php
-            $sqlIVA="select * from TIPOS_IVA";
+            $sqlIVA="select * from tipos_iva";
             $resIVA=mysqli_query($conn,$sqlIVA);
             while ($rowIVA=mysqli_fetch_assoc($resIVA)){
               ?>
@@ -119,7 +119,7 @@ conectar();
         <label for="tipo_pago">Pago</label>
           <select name="tipo_pago" class="e_form" id="tipo_pago">
           <?php
-            $sqlPago="select * from TIPOS_PAGO";
+            $sqlPago="select * from tipos_pago";
             $resPago=mysqli_query($conn,$sqlPago);
             while ($rowPago=mysqli_fetch_assoc($resPago)){
               ?>
@@ -129,6 +129,20 @@ conectar();
           ?>
           </select>
       </p>
+      <p>
+        <label for="tipo_documento">Documento por Defecto</label>
+          <select name="tipo_documento" class="e_form" id="tipo_documento">
+          <?php
+            $sqlPago="select * from documentos WHERE SIGNO='-'";
+            $resPago=mysqli_query($conn,$sqlPago);
+            while ($rowPago=mysqli_fetch_assoc($resPago)){
+              ?>
+              <option value="<?php if(isset($row)) { echo $row['ID_DOCUMENTO'];} else { echo $rowPago['ID_DOCUMENTO'];}?>" <?php if(isset($row)){ if ($row['ID_DOCUMENTO']==$rowPago['ID_DOCUMENTO']) { echo "selected='true'";}}?>><?php echo $rowPago['DESCRIPCION']."-".$rowPago['LETRA'] ?></option>
+            <?php
+            }
+          ?>
+          </select>
+      </p>      
       <p>
         <label for="observaciones">Observaciones</label>
         <textarea name="observaciones" id="observaciones" cols="100"></textarea>

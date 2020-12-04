@@ -10,9 +10,8 @@ for ($i=0;$i<count($clientes);$i++){
 	$sql="SELECT ID_PEDIDO FROM pedidos where ID_CLIENTE=".$clientes[$i];
 	$res=mysqli_query($conn,$sql);
 	while ($id_pedido=mysqli_fetch_assoc($res)){
-		$sql="INSERT INTO distribucion values (".$id_pedido['ID_PEDIDO'].",".$movil.")";
+		$sql="INSERT INTO distribucion (ID_PEDIDO, ID_MOVIL) values (".$id_pedido['ID_PEDIDO'].",".$movil.")";
 		if (!mysqli_query($conn, $sql)){
-			mysqli_query($conn, $sqlPedidos);
 			$bandera=1;
 		}
 		else{

@@ -542,6 +542,11 @@ fieldset {
                             <li><a href="#" onclick="llamar_distribucion('distribucion')"><i class="fas fa-truck"></i> Distribucion de Pedidos</a></li>
                         </ul>
                     </div>
+                    <div class="panel-body">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#" onclick="llamar_composicion('distribucion')"><i class="fas fa-file-alt"></i> Composicion de Carga</a></li>
+                        </ul>
+                    </div>                    
                 </div>
             </li>
             <li class="panel panel-default" id="dropdown">
