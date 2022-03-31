@@ -3,16 +3,43 @@
 include("../inc/conexion.php");
 conectar();
 
-$sqlMoviles="select * from moviles where anulado=0";
+$sqlMoviles="SELECT * from moviles where anulado=0";
 $resMoviles=mysqli_query($conn, $sqlMoviles);
 $vecMoviles=array();
 $i=0;
 while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 	$vecMoviles[$i]['ID_MOVIL']=$rowMoviles['ID_MOVIL'];
 	$vecMoviles[$i]['NOM_MOVIL']=$rowMoviles['NOM_MOVIL'];
+	$vecMoviles[$i]['PESO']=0;
+	$vecMoviles[$i]['BULTOS']=0;
+	$vecMoviles[$i]['UNIDADES']=0;
+	$vecMoviles[$i]['TOTAL']=0;
 	$i++;
 }
 
+$sqlCarga="SELECT sum(a.PESO*dp.CANT) as PESO, sum(p.TOTAL) as TOTAL , floor(sum(CANT/CANTXCAJA)) as BULTOS, sum(CANT mod CANTXCAJA) as UNIDADES, d.ID_MOVIL from distribucion d, moviles m, detalle_pedido dp, articulos a, pedidos p where m.ID_MOVIL=d.ID_MOVIL and dp.ID_PEDIDO=d.ID_PEDIDO and a.ID_ARTICULO=dp.ID_ARTICULO and dp.ID_PEDIDO=p.ID_PEDIDO group by d.ID_MOVIL";
+$resCarga=mysqli_query($conn, $sqlCarga);
+$vecCarga=array();
+$i=0;
+while ($rowCarga=mysqli_fetch_assoc($resCarga)){
+	$vecCarga[$i]['TOTAL']=$rowCarga['TOTAL'];
+	$vecCarga[$i]['PESO']=$rowCarga['PESO'];
+	$vecCarga[$i]['BULTOS']=$rowCarga['BULTOS'];
+	$vecCarga[$i]['UNIDADES']=$rowCarga['UNIDADES'];
+	$vecCarga[$i]['ID_MOVIL']=$rowCarga['ID_MOVIL'];
+	$i++;
+}
+
+for ($i=0;$i<count($vecMoviles);$i++){
+	for ($j=0;$j<count($vecCarga);$j++){
+		if ($vecMoviles[$i]['ID_MOVIL']==$vecCarga[$j]['ID_MOVIL']){
+			$vecMoviles[$i]['PESO']=$vecCarga[$j]['PESO'];
+			$vecMoviles[$i]['BULTOS']=$vecCarga[$j]['BULTOS'];
+			$vecMoviles[$i]['UNIDADES']=$vecCarga[$j]['UNIDADES'];
+			$vecMoviles[$i]['TOTAL']=$vecCarga[$j]['TOTAL'];
+		}
+	}
+}
 ?>
 <head>
 
@@ -25,6 +52,7 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
         position:fixed;
 		opacity: 1;
 		background-color: #5c6e9f; 
+		overflow: auto;
 	}	
 </style>
 <script src="distribucion/markerwithlabel.js"></script>	
@@ -35,6 +63,7 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 	var markersArray = [];
 	var marcadores = [];
 	var clientes_guardar = [];
+	var infos = [];
 	var path = new google.maps.MVCArray;
 
 	var drawingManager = new google.maps.drawing.DrawingManager({
@@ -50,6 +79,55 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 	});
 
 	var selectedShape;
+
+
+	function cargar_distribucion(id_movil){
+		$.ajax({
+			url:'distribucion/redistribucion.php',
+			type:'POST',
+			data:'movil='+id_movil,
+			success: function (a){
+				$('#modal-body').html(a);
+			}
+		})
+	}
+
+	function quitar_carga(id_movil){
+		$.ajax({
+			url:'distribucion/quitar_carga.php',
+			type:'POST',
+			data:'id_movil='+id_movil,
+			success: function (a){
+				cargar_distribucion(id_movil);
+				cargar_puntos();
+			}
+		})
+	}
+
+	function guardar_redistribucion(id_pedido, id_movil){
+		var nuevo_movil=$('#moviles_'+id_pedido).val();
+		$.ajax({
+			url:'distribucion/redistribuir_carga.php',
+			type:'POST',
+			data:'id_movil='+nuevo_movil+'&id_pedido='+id_pedido,
+			success: function (a){
+				cargar_distribucion(id_movil);
+				cargar_puntos();
+			}
+		})		
+	}
+
+	function quitar_pedido(id_pedido, id_movil){
+		$.ajax({
+			url:'distribucion/quitar_pedido.php',
+			type:'POST',
+			data: 'id_pedido='+id_pedido,
+			success: function (a){
+				cargar_distribucion(id_movil);
+				cargar_puntos();
+			}			
+		})
+	}	
 
     function quitar_poligono(){
    		if (selectedShape) {
@@ -67,7 +145,7 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 		<?php
 		//Connect to the PROGRESS database that is holding your data, replace the x's with your data
 
-		$sqlClientes="SELECT c.ID_CLIENTE, c.YCOORD, c.XCOORD, c.NOM_CLIENTE, sum(p.total) as TOTAL, sum(a.peso*d.cant) as PESO, floor(sum(cant/cantxcaja)) as BULTOS, cant mod cantxcaja as UNIDADES FROM pedidos p, clientes c, detalle_pedido d, articulos a WHERE c.ID_CLIENTE=p.ID_CLIENTE and a.ID_ARTICULO=d.ID_ARTICULO and d.ID_PEDIDO=p.ID_PEDIDO and p.DISTRIBUIDO=0 group by c.ID_CLIENTE";
+		$sqlClientes="SELECT c.ID_CLIENTE, c.YCOORD, c.XCOORD, c.NOM_CLIENTE, sum(p.TOTAL) as TOTAL, coalesce(sum(a.PESO*d.CANT),0) as PESO, floor(sum(CANT/CANTXCAJA)) as BULTOS,sum(CANT mod CANTXCAJA) as UNIDADES FROM pedidos p, clientes c, detalle_pedido d, articulos a WHERE c.ID_CLIENTE=p.ID_CLIENTE and a.ID_ARTICULO=d.ID_ARTICULO and d.ID_PEDIDO=p.ID_PEDIDO and p.DISTRIBUIDO=0 group by c.ID_CLIENTE";
 
 		$resClientes=mysqli_query($conn, $sqlClientes);
 
@@ -160,7 +238,7 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 		                		//accion de guardar la distribucion
 		             			var j=0;
 								for (var i = 0; i < markersArray.length; i++) {
-							  		if (google.maps.geometry.poly.containsLocation(markersArray[i].getPosition(), newShape)){
+							  		if (google.maps.geometry.poly.containsLocation(markersArray[i].getPosition(), overlay)){
 							  			var fletero=$('#fletero_mueve').val();
 										clientes_guardar[j]=markersArray[i].id;
 										j++;
@@ -177,6 +255,7 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 										for (var i = 0; i < markersArray.length; i++) {
 									  		if (google.maps.geometry.poly.containsLocation(markersArray[i].getPosition(), overlay)){
 									  			markersArray[i].setMap(null);
+									  			$('#datos_distribucion'+fletero).html('Peso de la carga:'+peso+'<hr> Total $ de la Carga:'+parseFloat(total).toFixed(2)+'<hr> Bultos: '+bultos+' Unidades: '+unidades+' </b>')									  			
 									  		}
 									  	}										
 									}
@@ -267,6 +346,7 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 										for (var i = 0; i < markersArray.length; i++) {
 									  		if (google.maps.geometry.poly.containsLocation(markersArray[i].getPosition(), newShape)){
 									  			markersArray[i].setMap(null);
+									  			$('#datos_distribucion'+fletero).html('Peso de la carga:'+peso+'<hr> Total $ de la Carga:'+parseFloat(total).toFixed(2)+'<hr> Bultos: '+bultos+' Unidades: '+unidades+' </b>')
 									  		}
 									  	}										
 									}
@@ -305,7 +385,14 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 				for ($i=0;$i<count($vecMoviles);$i++){
 				?>
 				<tr>
-					<td align="center" id="td_<?php echo $vecMoviles[$i]['ID_MOVIL']?>"><?php echo $vecMoviles[$i]['NOM_MOVIL']?><br><span style="font-size: 48px; color: Black;"><i class="fas fa-truck"></i></span></td>
+					<td align="center" id="td_<?php echo $vecMoviles[$i]['ID_MOVIL']?>"><?php echo $vecMoviles[$i]['NOM_MOVIL']?><br><a href="#modal-container-abm" data-toggle="modal" onclick="cargar_distribucion(<?php echo $vecMoviles[$i]['ID_MOVIL']?>)"><span style="font-size: 48px; color: Black;"><i class="fas fa-truck"></i></span></a><hr><span style="color: white" id="datos_distribucion<?php echo $vecMoviles[$i]['ID_MOVIL']?>">
+						Peso de la carga:<?php echo $vecMoviles[$i]['PESO'] ?>
+						<hr>
+						Total $ de la Carga:<?php echo $vecMoviles[$i]['TOTAL']?>
+						<hr>
+						Bultos: <?php echo $vecMoviles[$i]['BULTOS'] ?> Unidades: <?php echo $vecMoviles[$i]['UNIDADES'] ?> </b>
+					</span></td>
+					
 				</tr>
 				<?php
 				}
@@ -317,4 +404,17 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 <?php
 desconectar();
 ?>
+<div class="modal fade" id="modal-container-abm" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+         <legend>REDISTRIBUCION DE LA CARGA</legend>
+      </div>
+      <div class="modal-body" id="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
 </html>
