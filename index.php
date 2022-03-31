@@ -21,6 +21,7 @@ body {
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	opacity: 0.95;
 }
 .panel-login>.panel-heading {
 	color: #00415d;
@@ -141,29 +142,54 @@ body {
 	text-align: left;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
+	opacity: 1;
 }
 .box-info {
 	color: #00529b;
 	background-color: #bde5f8;
 	border-color: #00529b;
+	opacity: 1;
 }
 .box-success {
 	color: #4f8a10;
 	background-color: #dff2bf;
 	border-color: #4f8a10;
+	opacity: 1;
 }
 .box-alert {
 	color: #9f6000;
 	background-color: #feefb3;
 	border-color: #9f6000;
+	opacity: 1;
 }
 .box-error {
 	color: #d8000c;
 	background-color: #ffbaba;
 	border-color: #d8000c;
+	opacity: 1;
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
 }
 
 </style>
+<script>
+var video = document.getElementById("myVideo");
+
+function myFunction() {
+  if (video.paused) {
+    video.play();
+  } else {
+    video.pause();
+  }
+}
+</script>	
+</script>
 <body>  
 <?php
 	include('inc/conexion.php');
@@ -185,6 +211,10 @@ body {
 	}
 	else{	
 ?>
+	<video autoplay muted loop id="myVideo">
+  		<source src="traffic.mp4" type="video/mp4">
+  		Your browser does not support HTML5 video.
+	</video>
 	<div id="alertBoxes"></div>
 	<span class="timer" id="timer"  style="margin-left: 10px;"></span>
 	<div class="container">
@@ -192,12 +222,12 @@ body {
 			<!--<video id="mivideo" autoplay="autoplay" loop>
 			  <source src="imagenes/backgr1.mp4" type="video/mp4"></source>
 			</video>    		-->
-			<div class="col-lg-4">
+			<div class="col-lg-12">
 				<div class="panel panel-login">
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-6">
-								<a href="#" class="active" id="login-form-link"><h3>Nolan</h3></a>
+								<a href="#" class="active" id="login-form-link"><h3>Sistema para Distribuidora</h3></a>
 							</div>
 						</div>
 						<hr>

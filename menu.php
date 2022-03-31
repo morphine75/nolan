@@ -431,7 +431,8 @@ fieldset {
             <!-- Brand -->
             <div class="brand-name-wrapper">
                 <a class="navbar-brand" href="#">
-                    <b>Nolan Distribuciones</b>
+                    <b>Modulo de Distribucion</b>
+                    <hr>
                 </a>
             </div>
 

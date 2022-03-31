@@ -1,6 +1,6 @@
 var total_pedido=0;
 var subtotal_pedido=0;
-var filas_detalle_pedido=$('#filas_detalle_pedido').val();
+filas_detalle_pedido=0;
 function llamar(ruta){
 	$.ajax({
 		url:ruta+'/listado.php',
@@ -401,40 +401,40 @@ function alertas(msj)
 
 function anular(ruta, id){
 	$.confirm({
-    title: 'Confirmar Acción',
-    content: 'Desea eliminar el registro?',
-    icon: 'glyphicon glyphicon-question-sign',
-    animation: 'scale',
-    closeAnimation: 'scale',
-    opacity: 0.5,
-    buttons: {
-        confirm: {
-            text: 'SI',
-            btnClass: 'btn-green', 
-            action: function () {         
-                //accion de eliminar
-                var dataString='funcion=eliminar&id='+id;
-                $.ajax({
-					url:'./'+ruta+'/controlador.php',
-                	type:'post',
-                	data: dataString,
-                	success: function(a){
-                		alertas(a);
-                		llamar(ruta);
-                	}
-                })
-                //fin de accion eliminar
-            }
-        },
-        cancel: {
-            text: 'NO',
-            btnClass: 'btn-red',
-            action: function () {
-              $.alert('Accion Cancelada');
+        title: 'Confirmar Acción',
+        content: 'Desea eliminar el registro?',
+        icon: 'glyphicon glyphicon-question-sign',
+        animation: 'scale',
+        closeAnimation: 'scale',
+        opacity: 0.5,
+        buttons: {
+            confirm: {
+                text: 'SI',
+                btnClass: 'btn-green', 
+                action: function () {         
+                    //accion de eliminar
+                    var dataString='funcion=eliminar&id='+id;
+                    $.ajax({
+    					url:'./'+ruta+'/controlador.php',
+                    	type:'post',
+                    	data: dataString,
+                    	success: function(a){
+                    		alertas(a);
+                    		llamar(ruta);
+                    	}
+                    })
+                    //fin de accion eliminar
+                }
+            },
+            cancel: {
+                text: 'NO',
+                btnClass: 'btn-red',
+                action: function () {
+                  $.alert('Accion Cancelada');
+                }
             }
         }
-    }
-  });   
+    });   
 }
 
 function ver(ruta, id){
@@ -449,8 +449,10 @@ function ver(ruta, id){
 }
 
 function agregar_fila(){
+    filas_detalle_pedido=$('#filas_detalle_pedido').val();    
     $("#body_pedido").append('<tr id="tr_'+filas_detalle_pedido+'"><td><input type="text" size="7" name="codigo[]" id="codigo'+filas_detalle_pedido+'" onblur="busca_art_codigo(this.value, '+filas_detalle_pedido+')"></td><td><input type="text" class="inactivo" readonly="readonly" name="articulo[]" size="30" id="articulo'+filas_detalle_pedido+'"></td><td><span id="precio'+filas_detalle_pedido+'"></span></<td><td><input type="number" min="0" step="1" name="cantidad[]" size="5" id="cantidad'+filas_detalle_pedido+'" onclick="calcula_st(this.value,0,'+filas_detalle_pedido+')" onkeyup="calcula_st(this.value,0,'+filas_detalle_pedido+')"></td><td><input type="number" min="0" step="1" name="unidades[]" size="5" id="unidades'+filas_detalle_pedido+'" onclick="calcula_st(this.value,1,'+filas_detalle_pedido+')" onkeyup="calcula_st(this.value,1,'+filas_detalle_pedido+')"></td><td><input type="number" name="bonif[]" size="5" id="bonif'+filas_detalle_pedido+'" onkeyup="calcula_descuento(this.value,'+filas_detalle_pedido+')"> %</td><td><span id="subtotal'+filas_detalle_pedido+'"></span></td><td><a href="#" onclick="quitar_fila_dr('+filas_detalle_pedido+')"><span class="glyphicon glyphicon-trash"></span></a></td></tr><input type="hidden" name="cantxcaja[]" id="cantxcaja'+filas_detalle_pedido+'"><input type="hidden" name="subtotal_linea[]" id="subtotal_linea'+filas_detalle_pedido+'"><input type="hidden" name="stock[]" id="stock'+filas_detalle_pedido+'" value="0">');
     filas_detalle_pedido++;
+    $('#filas_detalle_pedido').val(filas_detalle_pedido);
     subtotal_pedido=0;
 }
 
@@ -573,7 +575,6 @@ function calcula_st(valor, tipo, fila){
         event.preventDefault(); //stop character from entering input 
     }
     var bandera_st=0;
-    alert (filas_detalle_pedido);
     for (var i=0;i<filas_detalle_pedido;i++){
         if ($('#subtotal'+i).length){
             /*CONTROLAR STOCK*/
@@ -595,13 +596,11 @@ function calcula_st(valor, tipo, fila){
                     bandera_st=1;
                 }
             }
-            alert ($('#subtotal'+i).html());            
             if ($('#subtotal'+i).html()==''){
                 var sumar=0;
             }
             else{
                 var sumar=parseFloat($('#subtotal'+i).html());
-                alert (sumar);
             }
             total_pedido=parseFloat(total_pedido)+sumar;
         }
@@ -658,7 +657,7 @@ function facturar_pedidos(id){
         type: 'POST',
         data:'id='+id,
         success: function(a){
-            $('#modal-body-facturar').html('');
+            $('#modal-body-facturar').html(a);
         }
     })
 }
@@ -666,21 +665,33 @@ function facturar_pedidos(id){
 
 function generar_planilla_carga(id){
     var fecha_entrega=$('#fecha_entrega_'+id).val();
-    if (fecha_entrega!=''){
-        $.ajax({
+    $.ajax({
             url:'./distribucion/generar_planilla_carga.php',
             type:'POST',
-            data:'id_movil='+id+'&fecha_entrega='+fecha_entrega,
+            data:'id_movil='+id,
             success: function(a){
-                $('#span_num_composicion').html(a);
-                $('#btn_imprimir'+id).css('display','table-cell');
-                $('#btn_imprimir'+id).html('Imprimir Composicion '+id);
-                $('#btn_generar'+id).css('display','none');
-                $('#fecha_entrega_'+id).css('display','none');
-            }
-        })
-    }
-    else{
-        alertas('Debe ingresar una fecha de entrega');
-    }
+                if (a=='0'){
+                    if (fecha_entrega!=''){
+                        $.ajax({
+                            url:'./distribucion/generar_planilla_carga.php',
+                            type:'POST',
+                            data:'id_movil='+id+'&fecha_entrega='+fecha_entrega,
+                            success: function(a){
+                                $('#span_num_composicion').html(a);
+                                $('#btn_imprimir'+id).css('display','table-cell');
+                                $('#btn_imprimir'+id).html('Imprimir Composicion N° '+id);
+                                $('#btn_generar'+id).css('display','none');
+                                $('#fecha_entrega_'+id).css('display','none');
+                            }
+                        })
+                    }
+                    else{
+                        alertas('Debe ingresar una fecha de entrega');
+                    }
+                }
+                else{
+                    alertas ('Existen pedidos sin facturar, por favor dirijase al modo comercial y facture los pedidos');
+                }
+            }            
+    })
 }

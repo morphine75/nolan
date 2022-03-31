@@ -51,7 +51,7 @@ $res=mysqli_query($conn, $sql);
 								$sqlven="select * from vendedores where ID_VENDEDOR=".$row['VEN_ID_VENDEDOR'];
 								$resven=mysqli_query($conn, $sqlven);
 								$rowven=mysqli_fetch_assoc($resven);
-								 echo $rowven['NOM_VENEDDOR'];
+								 echo $rowven['NOM_VENDEDOR'];
 							}else{
 								echo "No Posee";
 							}

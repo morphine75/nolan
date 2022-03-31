@@ -63,6 +63,7 @@ for ($i=0;$i<count($vecMoviles);$i++){
 	var markersArray = [];
 	var marcadores = [];
 	var clientes_guardar = [];
+	var infos = [];
 	var path = new google.maps.MVCArray;
 
 	var drawingManager = new google.maps.drawing.DrawingManager({
@@ -144,7 +145,7 @@ for ($i=0;$i<count($vecMoviles);$i++){
 		<?php
 		//Connect to the PROGRESS database that is holding your data, replace the x's with your data
 
-		$sqlClientes="SELECT c.ID_CLIENTE, c.YCOORD, c.XCOORD, c.NOM_CLIENTE, sum(p.TOTAL) as TOTAL, sum(a.PESO*d.CANT) as PESO, floor(sum(CANT/CANTXCAJA)) as BULTOS,sum(CANT mod CANTXCAJA) as UNIDADES FROM pedidos p, clientes c, detalle_pedido d, articulos a WHERE c.ID_CLIENTE=p.ID_CLIENTE and a.ID_ARTICULO=d.ID_ARTICULO and d.ID_PEDIDO=p.ID_PEDIDO and p.DISTRIBUIDO=0 group by c.ID_CLIENTE";
+		$sqlClientes="SELECT c.ID_CLIENTE, c.YCOORD, c.XCOORD, c.NOM_CLIENTE, sum(p.TOTAL) as TOTAL, coalesce(sum(a.PESO*d.CANT),0) as PESO, floor(sum(CANT/CANTXCAJA)) as BULTOS,sum(CANT mod CANTXCAJA) as UNIDADES FROM pedidos p, clientes c, detalle_pedido d, articulos a WHERE c.ID_CLIENTE=p.ID_CLIENTE and a.ID_ARTICULO=d.ID_ARTICULO and d.ID_PEDIDO=p.ID_PEDIDO and p.DISTRIBUIDO=0 group by c.ID_CLIENTE";
 
 		$resClientes=mysqli_query($conn, $sqlClientes);
 
