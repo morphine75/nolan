@@ -401,40 +401,40 @@ function alertas(msj)
 
 function anular(ruta, id){
 	$.confirm({
-        title: 'Confirmar Acción',
-        content: 'Desea eliminar el registro?',
-        icon: 'glyphicon glyphicon-question-sign',
-        animation: 'scale',
-        closeAnimation: 'scale',
-        opacity: 0.5,
-        buttons: {
-            confirm: {
-                text: 'SI',
-                btnClass: 'btn-green', 
-                action: function () {         
-                    //accion de eliminar
-                    var dataString='funcion=eliminar&id='+id;
-                    $.ajax({
-    					url:'./'+ruta+'/controlador.php',
-                    	type:'post',
-                    	data: dataString,
-                    	success: function(a){
-                    		alertas(a);
-                    		llamar(ruta);
-                    	}
-                    })
-                    //fin de accion eliminar
-                }
-            },
-            cancel: {
-                text: 'NO',
-                btnClass: 'btn-red',
-                action: function () {
-                  $.alert('Accion Cancelada');
-                }
+    title: 'Confirmar Acción',
+    content: 'Desea eliminar el registro?',
+    icon: 'glyphicon glyphicon-question-sign',
+    animation: 'scale',
+    closeAnimation: 'scale',
+    opacity: 0.5,
+    buttons: {
+        confirm: {
+            text: 'SI',
+            btnClass: 'btn-green', 
+            action: function () {         
+                //accion de eliminar
+                var dataString='funcion=eliminar&id='+id;
+                $.ajax({
+					url:'./'+ruta+'/controlador.php',
+                	type:'post',
+                	data: dataString,
+                	success: function(a){
+                		alertas(a);
+                		llamar(ruta);
+                	}
+                })
+                //fin de accion eliminar
+            }
+        },
+        cancel: {
+            text: 'NO',
+            btnClass: 'btn-red',
+            action: function () {
+              $.alert('Accion Cancelada');
             }
         }
-    });   
+    }
+  });   
 }
 
 function ver(ruta, id){

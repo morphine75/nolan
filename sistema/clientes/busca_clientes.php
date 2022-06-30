@@ -15,7 +15,7 @@ conectar();
 
 $nombre=$_REQUEST['cadena'];
 
-$sql="select DISTINCT(c.ID_CLIENTE) as ID_CLIENTE, c.NOM_CLIENTE, c.CUIT, c.CALLE, c.ALTURA, v.NOM_VENDEDOR from clientes c left join cli_x_ruta cli on c.ID_CLIENTE=cli.ID_CLIENTE left join perso_x_rut p on p.ID_RUTA=cli.ID_RUTA left join vendedores v on p.ID_VENDEDOR=v.ID_VENDEDOR where c.NOM_CLIENTE like ('%".$nombre."%')";
+$sql="select DISTINCT(c.ID_CLIENTE) as ID_CLIENTE, c.NOM_CLIENTE, c.CUIT, c.CALLE, c.ALTURA, v.NOM_VENDEDOR from clientes c, cli_x_ruta cli, perso_x_rut p, vendedores v where c.ID_CLIENTE=cli.ID_CLIENTE and p.ID_VENDEDOR=v.ID_VENDEDOR and p.ID_RUTA=cli.ID_RUTA and c.NOM_CLIENTE like ('%".$nombre."%')";
 
 $res=mysqli_query($conn, $sql);
 

@@ -41,7 +41,7 @@ function guardar($conn){
 function eliminar($conn){
 	$id=$_REQUEST['id'];
 	$id=explode("-", $id);
-	$sql="DELETE FROM precio_venta where ID_LISTA=".$id[0]." AND ID_ARTICULO=".$id[1];
+	$sql="DELETE FROM precio_venta where ID_LISTA=".$id[1]." AND ID_ARTICULO=".$id[0];
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
 		//$sql="UPDATE PRECIO_VENTA SET ANULADO=1 WHERE ID_LISTA=".$id[0];

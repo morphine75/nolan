@@ -39,10 +39,10 @@ function guardar($conn){
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM TIPOS_IVA where ID_TIPO_IVA=".$id;
+	$sql="DELETE FROM tipos_iva where ID_TIPO_IVA=".$id;
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE TIPOS_IVA SET ANULADO=1 WHERE ID_TIPO_IVA=".$id;
+		$sql="UPDATE tipos_iva SET ANULADO=1 WHERE ID_TIPO_IVA=".$id;
 		$res=mysqli_query($conn,$sql);
 		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El tipo de IVA se encuentra relacionado a clientes, se procedio a anularlo </strong></div>';
 	}

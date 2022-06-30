@@ -13,7 +13,7 @@ conectar();
     $row=mysqli_fetch_assoc($sql);   
   }
   else{
-    $titulo="Rutas por Proveedores por Articulos";
+    $titulo="Proveedores por Articulos";
     $id=0;
   }
   ?>
@@ -37,7 +37,7 @@ conectar();
       </p>
       <p class="p_form"><label><span class="obligatorio">(*)</span> Articulo:</label>
           <?php 
-            $sqlSuc="SELECT * from ARTICULOS where ANULADO=0";
+            $sqlSuc="SELECT * from articulos where ANULADO=0";
             $resSuc=mysqli_query($conn, $sqlSuc);
             ?>    
             <select name="articulos">

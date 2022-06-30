@@ -7,7 +7,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Sucursal";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM sucursales WHERE ID_SUCURSAL=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM depositos WHERE ID_DEPOSITO=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{

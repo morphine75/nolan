@@ -24,7 +24,7 @@ conectar();
       <p class="p_form"><label>Deposito</label>
         <select name="deposito">
         <?php
-        $sqlD="SELECT ID_DEPOSITO, DESCRIPCION FROM depositos WHERE ANULADO=0";
+        $sqlD="SELECT ID_DEPOSITO, DESCRIPCION FROM DEPOSITOS WHERE ANULADO=0";
         $resD=mysqli_query($conn, $sqlD);
         while ($rowD=mysqli_fetch_assoc($resD)){?>
           <option value="<?php echo $rowD['ID_DEPOSITO']?>"><?php echo $rowD['DESCRIPCION']?></option>

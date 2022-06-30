@@ -3,7 +3,7 @@ include("../inc/conexion.php");
 conectar();
 $ruta=$_REQUEST['path'];
 ?>
-<h3>Articulos1</h3>
+<h3>Articulos</h3>
 <div id="menu" align="left">
   <a class="btn btn-primary" onclick="editar('articulos',0)" href="#modal-container-abm" data-toggle="modal"><span class="glyphicon glyphicon-plus-sign"></span> Nuevo</a>&emsp;
   <br />
@@ -16,7 +16,7 @@ $res=mysqli_query($conn, $sql);
 ?>
 
 <div id="listado">
-	<table class="table table-hover table-striped" id="tabla_listado">
+	<table class="table table-hover" id="tabla_listado">
 		<thead>
 			<tr>
 				<th>Id</th>

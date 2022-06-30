@@ -8,7 +8,7 @@ conectar();
    if($_REQUEST['id']>0){
     $titulo="Editar Proveedor";
     $id=$_REQUEST['id'];
-    $sql=mysqli_query($conn,"SELECT * FROM proveedores WHERE id_proveedor=".$id);
+    $sql=mysqli_query($conn,"SELECT * FROM PROVEEDORES WHERE id_proveedor=".$id);
     $row=mysqli_fetch_assoc($sql);   
   }
   else{

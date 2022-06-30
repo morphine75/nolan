@@ -11,7 +11,7 @@ $ruta=$_REQUEST['path'];
 </div>
 
 <?php
-$sql="select r.ID_RUTA, r.DESCRIPCION as RUTA, s.DESCRIPCION as SUCURSAL from rutas r, sucursales s where s.ID_SUCURSAL=r.ID_SUCURSAL and ANULADO=0 and ID_TIPO_RUTA in (select ID_TIPO_RUTA from TIPO_RUTA where DESCRIPCION like '%VENTA%')";
+$sql="select r.ID_RUTA, r.DESCRIPCION as RUTA, s.DESCRIPCION as SUCURSAL from rutas r, sucursales s where s.ID_SUCURSAL=r.ID_SUCURSAL and ANULADO=0 and ID_TIPO_RUTA in (select ID_TIPO_RUTA from tipo_ruta where DESCRIPCION like '%VENTA%')";
 $res=mysqli_query($conn, $sql);
 ?>
 

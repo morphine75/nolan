@@ -31,7 +31,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE proveedores SET ID_TIPO_IVA='".$tipo_iva."', NOMPROV='".$nombre."', DOMIPROV='".$direccion."', DIAS='".$dias."', NUMBRU='".$numbru."', NUMCUIT='".$cuit."', TELEFONO='".$telefono."' WHERE ID_PROVEEDOR=".$id;
+		$sql="UPDATE PROVEEDORES SET ID_TIPO_IVA='".$tipo_iva."', NOMPROV='".$nombre."', DOMIPROV='".$direccion."', DIAS='".$dias."', NUMBRU='".$numbru."', NUMCUIT='".$cuit."', TELEFONO='".$telefono."' WHERE ID_PROVEEDOR=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';
@@ -45,10 +45,10 @@ function guardar($conn){
 
 function eliminar($conn){
 	$id=$_REQUEST['id'];
-	$sql="DELETE FROM proveedores where ID_PROVEEDOR=".$id;
+	$sql="DELETE FROM PROVEEDORES where ID_PROVEEDOR=".$id;
 	$res=@mysqli_query($conn,$sql);
 	if ($res === false) {
-		$sql="UPDATE proveedores SET ANULADO=1 WHERE ID_PROVEEDOR=".$id;
+		$sql="UPDATE PROVEEDORES SET ANULADO=1 WHERE ID_PROVEEDOR=".$id;
 		$res=mysqli_query($conn,$sql);
 		echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>El proveedor se encuentra relacionado a movimientos, se procedio a anularlo </strong></div>';
 	}

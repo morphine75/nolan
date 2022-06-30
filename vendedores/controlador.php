@@ -25,6 +25,7 @@ function guardar($conn){
 
 	if ($id==0){
 		$sql="INSERT INTO vendedores ( ID_SUCURSAL, VEN_ID_VENDEDOR, NOM_VENDEDOR, CARGO, DOMICILIO, TELEFOS, ANULADO) VALUES ('".$sucursal."', ".$superior.", '".$nombre."','".$cargo."','".$domicilio."', '".$telefono."', 0)";
+		echo $sql;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong> Hubo problemas en la insercion</strong></div>';
@@ -34,10 +35,10 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE vendedores SET ID_SUCURSAL='".$sucursal."', VEN_ID_VENDEDOR=".$superior.", NOM_VENEDDOR='".$nombre."', CARGO='".$cargo."', DOMICILIO='".$domicilio."', TELEFOS='".$telefono."' WHERE ID_VENDEDOR=".$id;
+		$sql="UPDATE vendedores SET ID_SUCURSAL='".$sucursal."', VEN_ID_VENDEDOR=".$superior.", NOM_VENDEDOR='".$nombre."', CARGO='".$cargo."', DOMICILIO='".$domicilio."', TELEFOS='".$telefono."' WHERE ID_VENDEDOR=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
-			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';
+			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>'.$sql;
 		}
 		else{
 			

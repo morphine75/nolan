@@ -25,6 +25,40 @@
 	<script src="mapa_rutas/markerwithlabel.js"></script>	
     <script type='text/javascript'>
 	
+	function imprimir_mapa()
+	{
+		var body = $('body');
+		var mapContainer = $('#map_canvas');
+		var mapContainerParent = mapContainer.parent();
+		var printContainer = $('<div>');		
+		
+		printContainer
+			.addClass('print-container')
+			.css('position', 'relative')
+			.height(mapContainer.height())
+			.append(mapContainer)
+			.prependTo(body);
+
+		var content = body
+			.children()
+			.not('script')
+			.not(printContainer)
+			.detach();
+			
+		// Patch for some Bootstrap 3.3.x `@media print` styles. :|
+		var patchedStyle = $('<style>')
+			.attr('media', 'print')
+			.text('img { max-width: none !important; }' +'a[href]:after { content: ""; }')
+			.appendTo('head');			
+		
+		window.print();
+
+		body.prepend(content);
+		mapContainerParent.prepend(mapContainer);
+
+		printContainer.remove();
+		patchedStyle.remove();		
+	}
  
     //This javascript will load when the page loads.
     jQuery(document).ready( function($){

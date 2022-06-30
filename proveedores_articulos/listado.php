@@ -11,7 +11,7 @@ $ruta=$_REQUEST['path'];
 </div>
 
 <?php
-$sql="SELECT p.ID_PROVEEDOR, p.ID_ARTICULO, pr.NOMPROV, a.DESCRIPCION, p.PRECIO_COMPRA from prov_x_articulo p, proveedores pr, articulos a WHERE pr.ID_PROVEEDOR=pr.ID_PROVEEDOR and a.ID_ARTICULO=p.ID_ARTICULO AND a.ANULADO=0";
+$sql="select p.ID_PROVEEDOR, p.ID_ARTICULO, pr.NOMPROV, a.DESCRIPCION, p.PRECIO_COMPRA from PROV_X_ARTICULO p, PROVEEDORES pr, ARTICULOS a WHERE pr.ID_PROVEEDOR=pr.ID_PROVEEDOR and a.ID_ARTICULO=p.ID_ARTICULO AND a.ANULADO=0";
 $res=mysqli_query($conn, $sql);
 ?>
 

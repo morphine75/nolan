@@ -25,7 +25,7 @@ conectar();
       </p>
       <p class="p_form"><label><span class="obligatorio">(*)</span> Sucursal:</label>
           <?php 
-            $sqlSuc="select * from SUCURSALES";
+            $sqlSuc="select * from sucursales";
             $resSuc=mysqli_query($conn, $sqlSuc);
             ?>    
             <select name="sucursal">
