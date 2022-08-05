@@ -2,7 +2,7 @@
 include("../inc/conexion.php");
 conectar();
 
-$sql="SELECT p.ID_CLIENTE, c.NOM_CLIENTE, p.TOTAL, p.ID_PEDIDO FROM pedidos p, clientes c, distribucion d where c.ID_CLIENTE=p.ID_CLIENTE and p.ID_PEDIDO=d.ID_PEDIDO and p.PROCESADO=0";
+$sql="SELECT p.ID_CLIENTE, c.NOM_CLIENTE, c.FANTASIA, p.TOTAL, p.ID_PEDIDO FROM pedidos p, clientes c, distribucion d where c.ID_CLIENTE=p.ID_CLIENTE and p.ID_PEDIDO=d.ID_PEDIDO and p.PROCESADO=0";
 $res=mysqli_query($conn, $sql);
 ?>
 <table class="table table-striped">
@@ -24,7 +24,7 @@ $res=mysqli_query($conn, $sql);
 		<tr>
 			<td><?php echo $row['ID_PEDIDO']?></td>
 			<td><?php echo $row['ID_CLIENTE']?></td>
-			<td><?php echo $row['NOM_CLIENTE']?></td>
+			<td><?php echo $row['NOM_CLIENTE'].' - '.$row['FANTASIA']?></td>
 			<td>$ <?php echo number_format($row['TOTAL'],2,",","")?></td>
 			<td><a class="btn btn-primary" onclick="facturar_pedidos(<?php echo $row['ID_PEDIDO']?>)">Facturar</a></td>
 		</tr>

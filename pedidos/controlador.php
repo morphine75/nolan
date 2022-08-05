@@ -64,6 +64,12 @@ function guardar($conn){
 		}		
 	}
 	else{
+		$sql="UPDATE pedidos SET TOTAL =".$total." WHERE ID_PEDIDO=".$id;
+		$res=@mysqli_query($conn,$sql);
+		if ($res === false) {
+			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';
+		}
+		else{
 		$bandera_inserta=0;
 		$sql="SELECT ID_ARTICULO, CANT FROM detalle_pedido WHERE ID_PEDIDO=".$id;
 		$res=mysqli_query($conn, $sql);
@@ -111,7 +117,7 @@ function guardar($conn){
 	}
 
 }
-
+}
 function eliminar($conn){
 	$id=$_REQUEST['id'];
 	$sql="SELECT ID_ARTICULO, CANT FROM detalle_pedido WHERE ID_PEDIDO=".$id;

@@ -33,7 +33,24 @@ $res=mysqli_query($conn, $sql);
 					<td><?php echo $row['ID_RUTA'].$row['ID_VENDEDOR']?></td>
 					<td><?php echo $row['RUTA']?></td>
 					<td><?php echo $row['NOM_VENDEDOR']?></td>
-					<td><?php echo $row['DIAVIS']?></td>
+					<td><?php if ($row['DIAVIS']==1){
+    									echo "Lunes";
+  									}
+  									if ($row['DIAVIS']==2){
+									   echo "Martes";
+									  }
+									  if ($row['DIAVIS']==3){
+									   echo "Miercoles";
+									  }
+									  if ($row['DIAVIS']==4){
+									    echo "Jueves";
+									  }
+									  if ($row['DIAVIS']==5){
+									    echo "Viernes";
+									  }
+									  if ($row['DIAVIS']==6){
+									    echo "Sabado";
+									  }?></td>
 					<td><a class="btn btn-danger" onclick="anular('rutas_vendedor', '<?php echo $row['ID_RUTA']."-".$row['ID_VENDEDOR'];?>')" style="padding: 5px">
                 	<span class="glyphicon glyphicon-remove"></span> Eliminar</a>
                 	<!--<a onclick="editar('rutas_vendedor', '<?php echo $row['ID_RUTA']."-".$row['ID_VENDEDOR'];?>')" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a>--></td>

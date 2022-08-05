@@ -34,7 +34,7 @@ conectar();
           }
           ?>
         </select>
-      </p>
+      </p><br>
       <p class="p_form"><label><span class="obligatorio">(*)</span> Articulo:</label>
           <?php 
             $sqlSuc="SELECT * from articulos where ANULADO=0";
@@ -49,10 +49,10 @@ conectar();
               }
               ?>
             </select>
-      </p>
+      </p><br>
       <p class="p_form"><label><span class="obligatorio">(*)</span> Precio:</label>
         <input type="text" name="precio" id="precio" value="<?php if(isset($row)){ echo $row['PRECIO_COMPRA'];}?>">
-      </p>      
+      </p><br>      
     </form>
     <div class="modal-footer" style="width: 100%;" align="left">  
       <button class="btn btn-primary" onclick="controlar('proveedores_articulos','<?php echo $id[0]."-".$id[1]; ?>')"  style="margin-left: 10px; border:none"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button> <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpia_div()">Cancelar</button>

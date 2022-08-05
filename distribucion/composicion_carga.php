@@ -33,7 +33,7 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 				<div class="tab-content">
 					<?php
 					for ($i=0;$i<count($vecMoviles);$i++){
-						$sql="SELECT sum(a.PESO*dp.CANT) as PESO, sum(p.TOTAL) as TOTAL , floor(sum(CANT/CANTXCAJA)) as BULTOS, sum(CANT mod CANTXCAJA) as UNIDADES, a.ID_ARTICULO, a.DESCRIPCION, d.ID_MOVIMIENTO from distribucion d, moviles m, detalle_pedido dp, articulos a, pedidos p where m.ID_MOVIL=d.ID_MOVIL and dp.ID_PEDIDO=d.ID_PEDIDO and a.ID_ARTICULO=dp.ID_ARTICULO and dp.ID_PEDIDO=p.ID_PEDIDO AND d.ID_MOVIL=".$vecMoviles[$i]['ID_MOVIL'];
+						$sql="SELECT SUM( a.PESO * ( CANT / CANTXCAJA ) ) AS PESO, p1.TOTAL AS TOTAL, SUM( FLOOR( CANT / CANTXCAJA ) ) AS BULTOS, SUM( CANT mod CANTXCAJA ) AS UNIDADES, d.ID_MOVIL, d.ID_MOVIMIENTO FROM (SELECT SUM( p.total ) AS total, d.id_movil FROM pedidos p, distribucion d WHERE p.id_pedido = d.id_pedido GROUP BY d.id_movil)p1, distribucion d, moviles m, detalle_pedido dp, articulos a, pedidos p WHERE m.ID_MOVIL = d.ID_MOVIL AND p1.id_movil = d.id_movil AND dp.ID_PEDIDO = d.ID_PEDIDO AND a.ID_ARTICULO = dp.ID_ARTICULO AND dp.ID_PEDIDO = p.ID_PEDIDO AND d.ID_MOVIL=".$vecMoviles[$i]['ID_MOVIL'];
 						$res=mysqli_query($conn, $sql);
 						$row=mysqli_fetch_assoc($res);
 					?>
@@ -77,7 +77,7 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 									</thead>
 									<tbody>
 									<?php
-									$sqlDetalle="SELECT sum(a.PESO*dp.CANT) as PESO, sum(p.TOTAL) as TOTAL , floor(sum(CANT/CANTXCAJA)) as BULTOS, sum(CANT mod CANTXCAJA) as UNIDADES, a.ID_ARTICULO, a.DESCRIPCION from distribucion d, moviles m, detalle_pedido dp, articulos a, pedidos p where m.ID_MOVIL=d.ID_MOVIL and dp.ID_PEDIDO=d.ID_PEDIDO and a.ID_ARTICULO=dp.ID_ARTICULO and dp.ID_PEDIDO=p.ID_PEDIDO AND d.ID_MOVIL=".$vecMoviles[$i]['ID_MOVIL']." group by a.ID_ARTICULO";
+									$sqlDetalle="SELECT sum(a.PESO*(CANT/CANTXCAJA)) as PESO, sum(floor(CANT/CANTXCAJA)) as BULTOS, sum(CANT mod CANTXCAJA) as UNIDADES, a.ID_ARTICULO, a.DESCRIPCION from distribucion d, moviles m, detalle_pedido dp, articulos a, pedidos p where m.ID_MOVIL=d.ID_MOVIL and dp.ID_PEDIDO=d.ID_PEDIDO and a.ID_ARTICULO=dp.ID_ARTICULO and dp.ID_PEDIDO=p.ID_PEDIDO AND d.ID_MOVIL=".$vecMoviles[$i]['ID_MOVIL']." group by a.ID_ARTICULO";
 									$resDetalle=mysqli_query($conn, $sqlDetalle);
 									while ($rowDetalle=mysqli_fetch_assoc($resDetalle)){
 									?>

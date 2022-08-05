@@ -19,7 +19,7 @@ function guardar($conn){
 	$fecha=date('Y-m-d');
 
 	if ($id==0){
-		$sql="INSERT INTO articulos (DESCRIPCION, FECALTA, VALOR, PESO, CANTXCAJA) VALUES ('".$nombre."', '".$fecha."', '".$litros."', '".$peso."', '".$cant_x_caja."')";
+		$sql="INSERT INTO articulos (DESCRIPCION, FECALTA, VALOR, PESO, CANTXCAJA, ANULADO) VALUES ('".$nombre."', '".$fecha."', '".$litros."', '".$peso."', '".$cant_x_caja."', 0)";
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la insercion</strong></div>';

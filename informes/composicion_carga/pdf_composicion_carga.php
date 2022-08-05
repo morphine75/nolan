@@ -5,7 +5,7 @@
 	$movil=$_REQUEST['id_movil'];
 	$nom_movil=$_REQUEST['nom_movil'];
 
-	$sql="SELECT sum(a.PESO*dp.CANT) as PESO, sum(p.TOTAL) as TOTAL , floor(sum(CANT/CANTXCAJA)) as BULTOS, sum(CANT mod CANTXCAJA) as UNIDADES, a.ID_ARTICULO, a.DESCRIPCION from distribucion d, moviles m, detalle_pedido dp, articulos a, pedidos p where m.ID_MOVIL=d.ID_MOVIL and dp.ID_PEDIDO=d.ID_PEDIDO and a.ID_ARTICULO=dp.ID_ARTICULO and dp.ID_PEDIDO=p.ID_PEDIDO AND d.ID_MOVIL=".$movil." group by a.ID_ARTICULO";
+	$sql="SELECT sum(a.PESO*(CANT/CANTXCAJA)) as PESO, sum(p.TOTAL) as TOTAL , sum(floor(CANT/CANTXCAJA)) as BULTOS, sum(CANT mod CANTXCAJA) as UNIDADES, a.ID_ARTICULO, a.DESCRIPCION from distribucion d, moviles m, detalle_pedido dp, articulos a, pedidos p where m.ID_MOVIL=d.ID_MOVIL and dp.ID_PEDIDO=d.ID_PEDIDO and a.ID_ARTICULO=dp.ID_ARTICULO and dp.ID_PEDIDO=p.ID_PEDIDO AND d.ID_MOVIL=".$movil." group by a.ID_ARTICULO";
 	$res=mysqli_query($conn, $sql);
 
 	require('../../fpdf/fpdf.php');
@@ -15,7 +15,7 @@
 	$pdf->PageNo();
 	$pdf->AliasNbPages('{totalPages}');                 
 
-	$pdf->Image('../../img/logo_nolan.jpg',15,8,33);
+	$pdf->Image('../../img/logo_prolog.jpg',15,8,33);
 
 
 	$pdf->SetFont('Arial','',6); 	
@@ -97,7 +97,7 @@
 	$pdf->PageNo();
 	$pdf->AliasNbPages('{totalPages}');                 
 
-	$pdf->Image('../../img/logo_nolan.jpg',15,8,33);
+	$pdf->Image('../../img/logo_prolog.jpg',15,8,33);
 
 
 	$pdf->SetFont('Arial','',6); 	

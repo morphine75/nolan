@@ -18,7 +18,7 @@ ob_start();
 	$pdf->PageNo();
 	$pdf->AliasNbPages('{totalPages}');                 
 
-	$pdf->Image('../../img/logo_nolan.jpg',15,8,33);
+	$pdf->Image('../../img/logo_prolog.jpg',15,8,33);
 
 	$pdf->SetFont('Arial','',6); 	
 	$pdf->SetXY(160,10);                      

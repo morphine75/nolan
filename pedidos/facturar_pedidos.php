@@ -48,7 +48,7 @@ else{
 			mysqli_query($conn, $sqlStock);
 		}
 		$sqlActualizaPedido="UPDATE pedidos set PROCESADO=1 WHERE ID_PEDIDO=".$row['ID_PEDIDO'];
-		$resActualizaPedido=mysql_query($sqlActualizaPedido);
+		$resActualizaPedido=mysqli_query($conn,$sqlActualizaPedido);
 	}
 	echo "Se ha facturado el pedido numero :".$id;	
 }

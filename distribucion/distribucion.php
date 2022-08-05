@@ -17,7 +17,8 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 	$i++;
 }
 
-$sqlCarga="SELECT sum(a.PESO*dp.CANT) as PESO, sum(p.TOTAL) as TOTAL , floor(sum(CANT/CANTXCAJA)) as BULTOS, sum(CANT mod CANTXCAJA) as UNIDADES, d.ID_MOVIL from distribucion d, moviles m, detalle_pedido dp, articulos a, pedidos p where m.ID_MOVIL=d.ID_MOVIL and dp.ID_PEDIDO=d.ID_PEDIDO and a.ID_ARTICULO=dp.ID_ARTICULO and dp.ID_PEDIDO=p.ID_PEDIDO group by d.ID_MOVIL";
+$sqlCarga="SELECT SUM( a.PESO * ( CANT / CANTXCAJA ) ) AS PESO, p1.TOTAL AS TOTAL, SUM( FLOOR( CANT / CANTXCAJA ) ) AS BULTOS, SUM( CANT mod CANTXCAJA ) AS UNIDADES, d.ID_MOVIL
+FROM (SELECT SUM( p.total ) AS total, d.id_movil FROM pedidos p, distribucion d WHERE p.id_pedido = d.id_pedido GROUP BY d.id_movil)p1, distribucion d, moviles m, detalle_pedido dp, articulos a, pedidos p WHERE m.ID_MOVIL = d.ID_MOVIL AND p1.id_movil = d.id_movil AND dp.ID_PEDIDO = d.ID_PEDIDO AND a.ID_ARTICULO = dp.ID_ARTICULO AND dp.ID_PEDIDO = p.ID_PEDIDO GROUP BY d.ID_MOVIL";
 $resCarga=mysqli_query($conn, $sqlCarga);
 $vecCarga=array();
 $i=0;
@@ -127,7 +128,7 @@ for ($i=0;$i<count($vecMoviles);$i++){
 				cargar_puntos();
 			}			
 		})
-	}	
+	}
 
     function quitar_poligono(){
    		if (selectedShape) {
@@ -145,7 +146,8 @@ for ($i=0;$i<count($vecMoviles);$i++){
 		<?php
 		//Connect to the PROGRESS database that is holding your data, replace the x's with your data
 
-		$sqlClientes="SELECT c.ID_CLIENTE, c.YCOORD, c.XCOORD, c.NOM_CLIENTE, sum(p.TOTAL) as TOTAL, coalesce(sum(a.PESO*d.CANT),0) as PESO, floor(sum(CANT/CANTXCAJA)) as BULTOS,sum(CANT mod CANTXCAJA) as UNIDADES FROM pedidos p, clientes c, detalle_pedido d, articulos a WHERE c.ID_CLIENTE=p.ID_CLIENTE and a.ID_ARTICULO=d.ID_ARTICULO and d.ID_PEDIDO=p.ID_PEDIDO and p.DISTRIBUIDO=0 group by c.ID_CLIENTE";
+		$sqlClientes="SELECT c.ID_CLIENTE, c.YCOORD, c.XCOORD, c.NOM_CLIENTE, p1.TOTAL AS TOTAL, COALESCE( SUM( a.PESO * ( CANT / CANTXCAJA ) ) , 0 ) AS PESO, SUM( FLOOR( CANT / CANTXCAJA ) ) AS BULTOS, SUM( CANT mod CANTXCAJA ) AS UNIDADES
+FROM (SELECT SUM( total ) AS total, id_cliente FROM pedidos p WHERE DISTRIBUIDO=0 GROUP BY p.id_cliente)p1, pedidos p, clientes c, detalle_pedido d, articulos a WHERE c.ID_CLIENTE = p1.ID_CLIENTE AND p.DISTRIBUIDO=0 AND a.ID_ARTICULO = d.ID_ARTICULO AND p1.id_cliente = p.id_cliente AND d.ID_PEDIDO = p.ID_PEDIDO GROUP BY c.ID_CLIENTE";
 
 		$resClientes=mysqli_query($conn, $sqlClientes);
 
@@ -349,7 +351,7 @@ for ($i=0;$i<count($vecMoviles);$i++){
 									  			$('#datos_distribucion'+fletero).html('Peso de la carga:'+peso+'<hr> Total $ de la Carga:'+parseFloat(total).toFixed(2)+'<hr> Bultos: '+bultos+' Unidades: '+unidades+' </b>')
 									  		}
 									  	}										
-									}
+									}  
 								})
 				            }
 				        },
@@ -379,20 +381,20 @@ for ($i=0;$i<count($vecMoviles);$i++){
 			<table class="table" style="color: #000033; width: 80%; margin: 0 auto;">
 				<legend align="center" style="color: #000033">Distribucion</legend>
 				<tr>
-					<td align="center"><a class="btn btn-primary" style=" width: 100%; margin: 0 auto;" onclick="quitar_poligono()">Quitar Zona de Distribucin</a></td>	
+					<td align="center"><a class="btn btn-primary" style=" width: 100%; margin: 0 auto;" onclick="quitar_poligono()">Quitar Zona de Distribucion</a></td>	
 				</tr>
 				<?php
 				for ($i=0;$i<count($vecMoviles);$i++){
 				?>
 				<tr>
-					<td align="center" id="td_<?php echo $vecMoviles[$i]['ID_MOVIL']?>"><?php echo $vecMoviles[$i]['NOM_MOVIL']?><br><a href="#modal-container-abm" data-toggle="modal" onclick="cargar_distribucion(<?php echo $vecMoviles[$i]['ID_MOVIL']?>)"><span style="font-size: 48px; color: Black;"><i class="fas fa-truck"></i></span></a><hr><span style="color: white" id="datos_distribucion<?php echo $vecMoviles[$i]['ID_MOVIL']?>">
+					<td align="center" id="td_<?php echo $vecMoviles[$i]['ID_MOVIL']?>"><?php echo $vecMoviles[$i]['NOM_MOVIL']?><br><a href="#modal-container-abm" data-toggle="modal" onclick="cargar_distribucion(<?php echo $vecMoviles[$i]['ID_MOVIL']?>)"><span style="font-size: 48px; color: Black;"><i class="fas fa-truck"></i></span></a><hr>
+						<span style="color: white" id="datos_distribucion<?php echo $vecMoviles[$i]['ID_MOVIL']?>">
 						Peso de la carga:<?php echo $vecMoviles[$i]['PESO'] ?>
 						<hr>
 						Total $ de la Carga:<?php echo $vecMoviles[$i]['TOTAL']?>
 						<hr>
 						Bultos: <?php echo $vecMoviles[$i]['BULTOS'] ?> Unidades: <?php echo $vecMoviles[$i]['UNIDADES'] ?> </b>
 					</span></td>
-					
 				</tr>
 				<?php
 				}
