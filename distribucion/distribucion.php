@@ -157,7 +157,7 @@ FROM (SELECT SUM( total ) AS total, id_cliente FROM pedidos p WHERE DISTRIBUIDO=
 		{
 		?>
 		  	var image = "distribucion/punto3.png";
-			var lat = new google.maps.LatLng(<?php echo $row['YCOORD']?>, <?php echo $row['XCOORD']?>);					
+			var lat = new google.maps.LatLng(<?php echo $row['XCOORD']?>, <?php echo $row['YCOORD']?>);					
 			//Create a new marker and info window
 			var markerCliente = new MarkerWithLabel({
 				map: map, 
