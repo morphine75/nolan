@@ -28,7 +28,7 @@ include("../inc/conexion.php");
 conectar();
 $movil=$_REQUEST['movil'];
 
-$sql="SELECT p.ID_CLIENTE, p.ID_PEDIDO, c.NOM_CLIENTE, c.CALLE, c.ALTURA, sum(a.PESO*dp.CANT) as PESO, sum(p.TOTAL) as TOTAL , floor(sum(CANT/CANTXCAJA)) as BULTOS, sum(CANT mod CANTXCAJA) as UNIDADES, d.ID_MOVIL from distribucion d, moviles m, detalle_pedido dp, articulos a, pedidos p, clientes c where m.ID_MOVIL=d.ID_MOVIL and dp.ID_PEDIDO=d.ID_PEDIDO and a.ID_ARTICULO=dp.ID_ARTICULO and dp.ID_PEDIDO=p.ID_PEDIDO and d.ID_MOVIL=".$movil." and c.ID_CLIENTE=p.ID_CLIENTE GROUP BY ID_PEDIDO, ID_CLIENTE";
+$sql="SELECT p.ID_CLIENTE, p.ID_PEDIDO, c.NOM_CLIENTE, c.FANTASIA, c.CALLE, c.ALTURA, sum(a.PESO*(CANT/CANTXCAJA)) as PESO, p.TOTAL as TOTAL , sum(floor(CANT/CANTXCAJA)) as BULTOS, sum(CANT mod CANTXCAJA) as UNIDADES, d.ID_MOVIL from distribucion d, moviles m, detalle_pedido dp, articulos a, pedidos p, clientes c where m.ID_MOVIL=d.ID_MOVIL and dp.ID_PEDIDO=d.ID_PEDIDO and a.ID_ARTICULO=dp.ID_ARTICULO and dp.ID_PEDIDO=p.ID_PEDIDO and d.ID_MOVIL=".$movil." and c.ID_CLIENTE=p.ID_CLIENTE GROUP BY ID_PEDIDO, ID_CLIENTE";
 $res=mysqli_query($conn, $sql);
 
 $sqlMoviles="SELECT * from moviles";
@@ -47,7 +47,7 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 	<caption><a class="btn btn-primary" onclick="quitar_carga(<?php echo $movil?>)">Quitar toda la carga del movil</a></caption>
 	<thead>
 		<tr>
-			<th>CODIGO CLIENTE</th>
+			<th>CODIGO PEDIDO</th>
 			<th>CLIENTE</th>
 			<th>DIRECCION</th>
 			<th>PESO DE LA CARGA</th>
@@ -61,8 +61,8 @@ while ($rowMoviles=mysqli_fetch_assoc($resMoviles)){
 <?php
 while ($row=mysqli_fetch_assoc($res)){?>
 	<tr>
-		<td><?php echo $row['ID_CLIENTE']?></td>
-		<td><?php echo $row['NOM_CLIENTE']?></td>
+		<td><?php echo $row['ID_PEDIDO']?></td>
+		<td><?php echo $row['NOM_CLIENTE'].' - '.$row['FANTASIA']?></td>
 		<td><?php echo $row['CALLE']." ".$row['ALTURA']?></td>
 		<td><?php echo $row['PESO']?></td>
 		<td><?php echo $row['TOTAL']?></td>

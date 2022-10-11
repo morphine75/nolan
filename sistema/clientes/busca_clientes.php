@@ -26,7 +26,7 @@ while($row=mysqli_fetch_assoc($res)){?>
 		<td><?php echo $row['CUIT']?></td>
 		<td><?php echo $row['CALLE']." ".$row['ALTURA'];?></td>
 		<td><?php echo $row['NOM_VENDEDOR']?></td>
-		<td><a class="btn btn-primary" onClick="seleccionar_cliente(<?php echo $row['ID_CLIENTE']; ?>);" title="Seleccionar Cliente..">Seleccionar</a></td>
+		<td><a class="btn btn-primary" onClick="seleccionar_cliente(<?php echo $row['ID_CLIENTE'];?>);" title="Seleccionar Cliente..">Seleccionar</a></td>
 	</tr>
 <?php
 }

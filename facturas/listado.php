@@ -3,18 +3,10 @@ include("../inc/conexion.php");
 conectar();
 $ruta=$_REQUEST['path'];
 ?>
-<h3>Pedidos</h3>
-<div id="menu" align="left">
-  <a class="btn btn-primary" onclick="editar('pedidos',0)" href="#modal-container-abm" data-toggle="modal"><span class="glyphicon glyphicon-plus-sign"></span> Nuevo</a>&emsp;
-  <br />
-  <br />
-  <a class="btn btn-primary" href="#modal-container-facturar" data-toggle="modal" onclick="cargar_pedidos()"><span class="glyphicon glyphicon-refresh"></span> Facturar Pedidos</a>&emsp;
-  <br />  
-  <hr>
-</div>
+<h3>Listado de Comprobantes</h3>
 
 <?php
-$sql="SELECT P.ID_PEDIDO, P.ID_CLIENTE, P.ID_VENDEDOR, P.ANULADO, C.NOM_CLIENTE, C.FANTASIA, V.NOM_VENDEDOR, P.FECHA, P.HORA, P.TOTAL from pedidos P, clientes C, vendedores V where P.ID_CLIENTE=C.ID_CLIENTE AND P.PROCESADO=0 AND P.ID_VENDEDOR=V.ID_VENDEDOR";
+$sql="SELECT P.ID_PEDIDO, P.ID_CLIENTE, P.ID_VENDEDOR, C.NOM_CLIENTE, C.FANTASIA, V.NOM_VENDEDOR, P.FECHA, P.HORA, P.TOTAL, CO.FECPAGA, CO.ID_DOCUMENTO, D.DESCRIPCION from pedidos P, clientes C, vendedores V, comprobantes CO, documentos D where P.ID_CLIENTE=C.ID_CLIENTE AND P.PROCESADO=1 AND P.ID_VENDEDOR=V.ID_VENDEDOR AND P.ID_PEDIDO=CO.ID_PEDIDO AND CO.ID_DOCUMENTO=D.ID_DOCUMENTO";
 $res=mysqli_query($conn, $sql);
 ?>
 
@@ -22,7 +14,9 @@ $res=mysqli_query($conn, $sql);
 	<table class="table table-hover table-striped" id="tabla_listado">
 		<thead>
 			<tr>
+				<th>Pago</th>
 				<th>Id</th>
+				<th>Tipo</th>
 				<th>Cliente</th>
 				<th>Fantasia</th>
 				<th>Vendedor</th>
@@ -36,18 +30,23 @@ $res=mysqli_query($conn, $sql);
 			<?php
 			while ($row=mysqli_fetch_assoc($res)){?>
 				<tr>
+					<td><?php if (isset($row['FECPAGA']) and $row['FECPAGA'] !=''){?> <span class="glyphicon glyphicon-ok"></span> <?php } ?></td>
 					<td><?php echo $row['ID_PEDIDO']?></td>
+					<td><?php echo $row['DESCRIPCION']?></td>
 					<td><?php echo $row['NOM_CLIENTE']?></td>
 					<td><?php echo $row['FANTASIA']?></td>
 					<td><?php echo $row['NOM_VENDEDOR']?></td>
 					<td><?php echo $row['FECHA']?></td>
 					<td><?php echo $row['HORA']?></td>
-					<td>$ <?php echo number_format($row['TOTAL'],2,",","")?></td>					
+					<td>$ <?php echo number_format($row['TOTAL'],2,",","")?></td>				
 					<td>
-						<a onclick="editar('pedidos', <?php echo $row['ID_PEDIDO']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a>
-						<a onclick="ver('pedidos', <?php echo $row['ID_PEDIDO']?>)" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-search"></span> Ver Pedido</a>
-						<a class="btn btn-danger" onclick="anular('pedidos', <?php echo $row['ID_PEDIDO'];?>)" style="padding: 5px">
-                		<span class="glyphicon glyphicon-remove"></span> Eliminar</a>
+						<a href="./facturas/pdf_factura.php?pedido=<?php echo $row['ID_PEDIDO']?>&documento=<?php echo $row['ID_DOCUMENTO']?>" class="btn btn-primary" target="_blank" data-toggle="modal"> <span class="glyphicon glyphicon-print"></span> Imprimir</a>
+						<?php
+					if ($row['ID_DOCUMENTO'] == 3)
+						{ ?>
+						<a id="rechazar_<?php echo $row['ID_PEDIDO'] ?>"  onclick="rechazar_pedido(<?php echo $row['ID_PEDIDO']?>, <?php echo $row['ID_DOCUMENTO']?>)" class="btn btn-danger"> <span class="glyphicon glyphicon-remove"></span> Pedido Rechazado</a>
+						<a id="pago<?php echo $row['ID_PEDIDO'] ?>"  onclick="pago_pedido(<?php echo $row['ID_PEDIDO']?>, <?php echo $row['ID_DOCUMENTO']?>)" class="btn btn-success"> <span class="glyphicon glyphicon-usd"></span>Pago</a>
+						<?php } ?>
 					</td>
 				</tr>
 			<?php

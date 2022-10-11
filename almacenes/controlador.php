@@ -26,7 +26,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE almacnes SET DESALMA='".$nombre."', ID_DEPOSITO='".$deposito."' WHERE ID_ALMACEN=".$id;
+		$sql="UPDATE almacenes SET DESALMA='".$nombre."', ID_DEPOSITO='".$deposito."' WHERE ID_ALMACEN=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';

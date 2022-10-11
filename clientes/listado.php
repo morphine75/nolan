@@ -20,6 +20,7 @@ $res=mysqli_query($conn, $sql);
 		<thead>
 			<tr>
 				<th>Id</th>
+				<th>Fantasia</th>
 				<th>Nombre</th>
 				<th>Direccion</th>
 				<th>CUIT</th>
@@ -33,6 +34,7 @@ $res=mysqli_query($conn, $sql);
 			while ($row=mysqli_fetch_assoc($res)){?>
 				<tr>
 					<td><?php echo $row['ID_CLIENTE']?></td>
+					<td><?php echo $row['FANTASIA']?></td>
 					<td><?php echo $row['NOM_CLIENTE']?></td>
 					<td><?php echo $row['CALLE']." ".$row['ALTURA']?></td>
 					<td><?php echo $row['CUIT']?></td>

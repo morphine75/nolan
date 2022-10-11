@@ -2,9 +2,10 @@
 session_start();
 ?>
 <html>
-<head> <title>Nolan</title> 
+<head> <title>ProLog</title> 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Administrador</title>
+<link rel="icon" type="image/ico" href="favicon.ico"/>
 </head>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -227,7 +228,7 @@ function myFunction() {
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-6">
-								<a href="#" class="active" id="login-form-link"><h3>Sistema para Distribuidora</h3></a>
+								<a href="#" class="active" id="login-form-link"><h3>Sistema ProLog</h3></a>
 							</div>
 						</div>
 						<hr>

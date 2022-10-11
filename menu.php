@@ -9,6 +9,8 @@
 <script type="text/javascript" src="js/jquery-confirm.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/funciones.js"></script>
+<title>ProLog</title>
+
 <!------ Include the above in your HEAD tag ---------->
 <style>
 input[type="number"] {
@@ -387,6 +389,7 @@ fieldset {
   }
 }
 </style>
+<link rel="icon" type="image/ico" href="favicon.ico"/>
 <script>
     $(function () {
     $('.navbar-toggle').click(function () {
@@ -410,6 +413,11 @@ fieldset {
     });
 });
 </script>
+  <?php session_start();
+   if  (!isset( $_SESSION['userid'])){ 
+          header("Location: http://prolog.com.ar/sistema_1/index.php");
+exit();
+  }?>
 <div class="row">
     <!-- uncomment code for absolute positioning tweek see top comment in css -->
     <!-- <div class="absolute-wrapper"> </div> -->
@@ -474,13 +482,20 @@ fieldset {
                             <li><a href="#" onclick="llamar('impuestos')"><span class="glyphicon glyphicon-gbp"></span> Impuestos</a></li>
                             <li><a href="#" onclick="llamar('documentos')"><span class="glyphicon glyphicon-folder-close"></span> Documentos</a></li>                            
                             <li><a href="#" onclick="llamar('tipos_iva')"><span class="glyphicon glyphicon-briefcase"></span>Tipos de IVA</a></li>
-                            <li><a href="#" onclick="llamar('tipos_ruta')"><span class="glyphicon glyphicon-road"></span>Tipos de Ruta</a></li>                              
-                            <li><a href="#" onclick="llamar('rutas_cliente')"><span class="glyphicon glyphicon-list-alt"></span>Rutas por Cliente</a></li>                            
+                            <li><a href="#" onclick="llamar('rutas')"><span class="glyphicon glyphicon-screenshot"></span>Rutas de Venta</a></li>
+                            <li><a href="#" onclick="llamar('rutas_cliente')"><span class="glyphicon glyphicon-list-alt"></span>Rutas por Cliente</a></li>                    
                             <li><a href="#" onclick="llamar('articulos')"><span class="glyphicon glyphicon-th "></span>Articulos</a></li>
                             <li><a href="#" onclick="llamar('listas_precio')"><span class="glyphicon glyphicon-list-alt"></span>Listas de Precio</a></li> 
-                            <li><a href="#" onclick="llamar('precio_venta')"><span class="glyphicon glyphicon-indent-left "></span>Precios de Venta</a></li>                               
+                            <li><a href="#" onclick="llamar('precio_venta')"><span class="glyphicon glyphicon-indent-left "></span>Precios de Venta</a></li>                    
                             <li><a href="#" onclick="llamar('proveedores')"><span class="glyphicon glyphicon-cd"></span>Proveedores</a></li>
-                            <li><a href="#" onclick="llamar('proveedores_articulos')"><span class="glyphicon glyphicon-duplicate"></span>Proveedores por Articulos</a></li>                            
+                            <li><a href="#" onclick="llamar('proveedores_articulos')"><span class="glyphicon glyphicon-duplicate"></span>Proveedores por Articulos</a></li> 
+                        </ul>
+                  </div>
+              </div>
+
+
+
+            </li>                           
                             <!-- Dropdown level 2 -->
                             <li class="panel panel-default" id="dropdown">
                                 <a data-toggle="collapse" href="#dropdown-lvl2">
@@ -490,7 +505,6 @@ fieldset {
                                     <div class="panel-body">
                                         <ul class="nav navbar-nav">
                                             <li><a href="#" onclick="llamar('vendedores')"><span class="glyphicon glyphicon-piggy-bank"></span>Vendedores</a></li>
-                                            <li><a href="#" onclick="llamar('rutas')"><span class="glyphicon glyphicon-screenshot"></span>Rutas de Venta</a></li>
                                             <li><a href="#" onclick="llamar('rutas_vendedor')"><span class="glyphicon glyphicon-retweet"></span>Rutas por Vendedor</a></li>
                                             <li><a href="#" onclick="llamar('pedidos')"><span class="glyphicon glyphicon-log-in"></span>Carga de Pedidos</a></li>
                                         </ul>
@@ -527,11 +541,8 @@ fieldset {
                                     </div>
                                 </div>
                             </li>                                                  
-                        </ul>
-                    </div>
-                </div>
-            </li>
-            <li><a href="#"><span class="glyphicon glyphicon-send"></span> Facturacion</a></li>
+                    
+            <li><a href="#" onclick="llamar('facturas')"><span class="glyphicon glyphicon-send"></span> Facturacion</a></li>
             <li class="panel panel-default" id="dropdown">
                 <a data-toggle="collapse" href="#dropdown-lvlDistribucion">
                     <span class="glyphicon glyphicon-cloud"></span> Distribucion <span class="caret"></span>
@@ -560,7 +571,7 @@ fieldset {
                         <ul class="nav navbar-nav">
                             <li><a href="#" onclick="llamar_informe('clientes_x_ruta')"><span class="glyphicon glyphicon-th-list"></span> Clientes por Ruta</a></li>
                             </li>                           
-                            <li><a href="#" onclick="llamar_mapa('mapa_rutas')"><span class="glyphicon glyphicon-map-marker"></span> Mapa de Rutas</a></li>
+                    <!--        <li><a href="#" onclick="llamar_mapa('mapa_rutas')"><span class="glyphicon glyphicon-map-marker"></span> Mapa de Rutas</a></li> -->
                             </li>                                                  
                         </ul>
                     </div>

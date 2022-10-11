@@ -29,7 +29,7 @@ conectar();
   <div id="map"></div>  
   <fieldset>
     <form method="post" id="formulario">
-      <p>
+      <p >
         <label for="sucursal">Sucursal</label>
           <select name="sucursal" class="e_form" id="sucursal">
           <?php
@@ -42,7 +42,7 @@ conectar();
             }
           ?>
           </select>
-      </p>      
+      </p><br>
       <p class="p_form"><label><span class="obligatorio">(*)</span> Nombre:</label>
         <input type="text" size="60" class="e_form" name="nombre" id="nombre" value="<?php if(isset($row)) { echo $row['NOM_CLIENTE'];}?>"/>
       </p>
@@ -86,7 +86,7 @@ conectar();
             }
           ?>
           </select>
-      </p> 
+      </p><br> 
       <p>
         <label for="lista_precio">Lista de Precio</label>
           <select name="lista_precio" class="e_form" id="lista_precio">
@@ -100,7 +100,7 @@ conectar();
             }
           ?>
           </select>
-      </p>
+      </p><br>
       <p>
         <label for="tipo_iva">Tipo de IVA</label>
           <select name="tipo_iva" class="e_form" id="tipo_iva">
@@ -114,7 +114,7 @@ conectar();
             }
           ?>
           </select>
-      </p>
+      </p><br>
       <p>
         <label for="tipo_pago">Pago</label>
           <select name="tipo_pago" class="e_form" id="tipo_pago">
@@ -128,7 +128,7 @@ conectar();
             }
           ?>
           </select>
-      </p>
+      </p><br>
       <p>
         <label for="tipo_documento">Documento por Defecto</label>
           <select name="tipo_documento" class="e_form" id="tipo_documento">
@@ -142,7 +142,7 @@ conectar();
             }
           ?>
           </select>
-      </p>      
+      </p><br>      
       <p>
         <label for="observaciones">Observaciones</label>
         <textarea name="observaciones" id="observaciones" cols="100"></textarea>
@@ -152,7 +152,7 @@ conectar();
       <input type="hidden" name="long" id="long">
     </form>
     <div class="modal-footer" style="width: 100%;" align="left">  
-      <button class="btn btn-primary" onclick="controlar('clientes',<?php echo $id; ?>)"  style="margin-left: 10px; border:none"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button> <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpia_div()">Cancelar</button>
+      <button class="btn btn-primary" onclick="controlar('clientes','<?php echo $id; ?>')"  style="margin-left: 10px; border:none"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button> <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpia_div()">Cancelar</button>
     </div>
   </fieldset>
 </div>

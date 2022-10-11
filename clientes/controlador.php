@@ -42,7 +42,7 @@ function guardar($conn){
 		}		
 	}
 	else{
-		$sql="UPDATE clientes SET NOM_CLIENTE='".$nombre."', CALLE='".$calle."' WHERE ID_CLIENTE=".$id;
+		$sql="UPDATE clientes SET NOM_CLIENTE='".$nombre."', FANTASIA='".$fantasia."', CUIT='".$cuit."', CALLE='".$calle."', ALTURA='".$altura."', CONTACTO='".$contacto."', TELEFONOS='".$telefono."', EMAIL='".$email."', ID_SUCURSAL='".$sucursal."', ID_CANAL='".$canal."', ID_LISTA='".$lista_precio."', ID_TIPO_IVA='".$tipo_iva."', ID_TIPO_PAGO='".$tipo_pago."', XCOORD='".$xcoord."', YCOORD='".$ycoord."', COMENTARIO='".$observaciones."', ID_DOCUMENTO='".$tipo_documento."' WHERE ID_CLIENTE=".$id;
 		$res=@mysqli_query($conn,$sql);
 		if ($res === false) {
 			echo '<div class="alert alert-danger alert-dismissable"> <button type="button" class="close" data-dismiss="alert">&times;</button> <i class="glyphicon glyphicon-ok-sign"></i> <strong>Hubo problemas en la modificacion</strong></div>';

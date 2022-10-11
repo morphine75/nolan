@@ -36,7 +36,7 @@ conectar();
       <p class="p_form"><label>Articulo:</label>
         <select name="articulo">
         <?php
-          $sql1="SELECT * from articulos WHERE ANULADO=0";
+          $sql1="SELECT * from articulos WHERE ANULADO IS NULL OR ANULADO=0";
           $res1=mysqli_query($conn, $sql1);
           while ($row1=mysqli_fetch_assoc($res1)){?>
             <option value="<?php echo $row1['ID_ARTICULO']?>" <?php if(isset($row)) { if ($row1['ID_ARTICULO']==$id[0]) { echo "selected='selected'";}}?>><?php echo $row1['DESCRIPCION']?></option>
@@ -53,7 +53,7 @@ conectar();
       <br>
     </form>
     <div class="modal-footer">  
-      <button class="btn btn-primary" data-dismiss="modal" onclick="controlar('precio_venta','<?php echo $id[0]."-".$id[1]; ?>')"  style="margin-left: 10px; border:none"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button> <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpia_div()">Cancelar</button>
+      <button class="btn btn-primary" data-dismiss="modal" onclick="controlar('precio_venta','<?php echo $id[0]."-".$id[1];?>')"  style="margin-left: 10px; border:none"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button> <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpia_div()">Cancelar</button>
     </div>
   </fieldset>
 </div>

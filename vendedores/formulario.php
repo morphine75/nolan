@@ -35,7 +35,7 @@ conectar();
             }
           ?>
         </select>
-      </p>
+      </p><br>
       <p class="p_form"><label><span class="obligatorio">(*)</span> Cargo:</label>
         <input type="text" maxlength="2" size="60" class="e_form" name="cargo" id="cargo" value="<?php if(isset($row)) { echo $row['CARGO'];}?>" />
       </p>   

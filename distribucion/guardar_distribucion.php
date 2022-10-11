@@ -7,7 +7,7 @@ $movil=$_REQUEST['movil'];
 $bandera=0;
 
 for ($i=0;$i<count($clientes);$i++){
-	$sql="SELECT ID_PEDIDO FROM pedidos where ID_CLIENTE=".$clientes[$i];
+	$sql="SELECT ID_PEDIDO FROM pedidos where ID_CLIENTE=".$clientes[$i]." AND DISTRIBUIDO=0";
 	$res=mysqli_query($conn,$sql);
 	while ($id_pedido=mysqli_fetch_assoc($res)){
 		$sql="INSERT INTO distribucion (ID_PEDIDO, ID_MOVIL) values (".$id_pedido['ID_PEDIDO'].",".$movil.")";

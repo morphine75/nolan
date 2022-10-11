@@ -11,7 +11,7 @@ $ruta=$_REQUEST['path'];
 </div>
 
 <?php
-$sql="select p.ID_RUTA, r.DESCRIPCION as DES_RUTAVENTA, v.ID_CLIENTE, RUTA, v.NOM_CLIENTE from cli_x_ruta p, clientes v, rutas r WHERE r.ID_RUTA=p.ID_RUTA and v.ID_CLIENTE=p.ID_CLIENTE";
+$sql="SELECT v.ID_CLIENTE, r.DESCRIPCION, v.NOM_CLIENTE, v.FANTASIA FROM cli_x_ruta p, clientes v, rutas r WHERE r.ID_RUTA=p.ID_RUTA and v.ID_CLIENTE=p.ID_CLIENTE";
 $res=mysqli_query($conn, $sql);
 ?>
 
@@ -20,8 +20,9 @@ $res=mysqli_query($conn, $sql);
 		<thead>
 			<tr>
 				<th>Id</th>
-				<th>Ruta</th>				
+				<th>Ruta Venta</th>
 				<th>Cliente</th>
+				<th>Fantasia</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
@@ -30,12 +31,13 @@ $res=mysqli_query($conn, $sql);
 			while ($row=mysqli_fetch_assoc($res)){
 				?>
 				<tr>
-					<td><?php echo $row['ID_RUTA'].$row['ID_CLIENTE']?></td>
-					<td><?php echo $row['RUTA']?></td>
+					<td><?php echo $row['ID_CLIENTE']?></td>
+					<td><?php echo $row['DESCRIPCION'];?></td>
 					<td><?php echo $row['NOM_CLIENTE']?></td>
-					<td><a class="btn btn-danger" onclick="anular('rutas_cliente', '<?php echo $row['ID_RUTA']."-".$row['RUTA']."-".$row['ID_CLIENTE'];?>')" style="padding: 5px">
+					<td><?php echo $row['FANTASIA']?></td>
+					<td><a class="btn btn-danger" onclick="anular('rutas_cliente', '<?php echo $row['ID_CLIENTE'];?>')" style="padding: 5px">
                 	<span class="glyphicon glyphicon-remove"></span> Eliminar</a>
-                	<a onclick="editar('rutas_cliente', '<?php echo $row['ID_RUTA']."-".$row['RUTA']."-".$row['ID_CLIENTE'];?>')" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>   	
+                	<a onclick="editar('rutas_cliente', '<?php echo $row['ID_CLIENTE'];?>')" class="btn btn-primary" href="#modal-container-abm" data-toggle="modal"> <span class="glyphicon glyphicon-edit"></span> Modificar</a></td>   	
 				</tr>
 			<?php
 			}
